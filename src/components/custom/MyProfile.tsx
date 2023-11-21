@@ -9,6 +9,7 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { User2 } from "lucide-react";
 
 const MyProfile = () => {
   const { data } = useSession();
@@ -25,7 +26,14 @@ const MyProfile = () => {
               )}
             </Avatar>
           </PopoverTrigger>
-          <PopoverContent>
+          <PopoverContent className="flex flex-col gap-4">
+            {data?.user?.role === "admin" && (
+              <Button asChild variant={"outline"} className={cn("w-full")}>
+                <Link href="/admin">
+                  <User2 className="mr-2 h-4 w-4" /> Admin
+                </Link>
+              </Button>
+            )}
             <Button
               variant={"outline"}
               className={cn("w-full")}
