@@ -4,8 +4,8 @@ import Image from "next/image";
 const User = async () => {
   const data = await getUserData();
   return (
-    <div>
-      {data.data.map((item: any, i: number) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {data?.user?.map((item: any, i: number) => (
         <div key={item.id}>
           <p className="flex gap-2 items-center">
             {i + 1}.{" "}
