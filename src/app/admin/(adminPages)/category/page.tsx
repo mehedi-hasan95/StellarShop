@@ -31,6 +31,7 @@ import { PlusCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Separator } from "@/components/ui/separator";
 
 const CreateCategory = () => {
   const router = useRouter();
@@ -60,7 +61,6 @@ const CreateCategory = () => {
     } catch (error) {
       console.error("Error:", error);
     }
-    // console.log(values);
   }
 
   const [data, setData] = useState([]);
@@ -69,7 +69,6 @@ const CreateCategory = () => {
       .then((response) => response.json())
       .then((data) => setData(data));
   }, []);
-  console.log(data);
   return (
     <div>
       <Dialog>
@@ -81,7 +80,7 @@ const CreateCategory = () => {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Are you want to sure make a category?</DialogTitle>
-            <DialogDescription>
+            <DialogDescription asChild>
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
@@ -114,6 +113,7 @@ const CreateCategory = () => {
           </DialogHeader>
         </DialogContent>
       </Dialog>
+      <Separator className="mt-7" />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 pt-10">
         {data?.category?.map((item: any) => (
           <Link href={`/category/${item.id}`} key={item.id}>

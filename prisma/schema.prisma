@@ -72,3 +72,20 @@ model Category {
   name  String
   image String?
 }
+
+model Division {
+  id       String     @id @default(cuid())
+  name     String     @unique
+  image    String?
+  District District[]
+}
+
+model District {
+  id         String   @id @default(cuid())
+  name       String   @unique
+  image      String?
+  divisionId String
+  division   Division @relation(fields: [divisionId], references: [id], onDelete: Cascade)
+
+  @@index([divisionId])
+}
