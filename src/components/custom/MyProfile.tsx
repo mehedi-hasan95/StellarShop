@@ -10,11 +10,13 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { User2 } from "lucide-react";
+import { ModeToggle } from "./ModeToggle";
 
 const MyProfile = () => {
   const { data } = useSession();
   return (
-    <div>
+    <div className="flex items-center gap-5">
+      <ModeToggle />
       {data?.user.id ? (
         <Popover>
           <PopoverTrigger>

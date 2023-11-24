@@ -93,7 +93,7 @@ const District = () => {
     <div>
       <Dialog>
         <DialogTrigger>
-          <div className="flex items-center bg-black text-white px-3 py-2">
+          <div className="flex items-center bg-black text-white dark:bg-white dark:text-black px-3 py-2">
             <PlusCircle className="mr-2 h-4 w-4" />
             Crate District
           </div>

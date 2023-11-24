@@ -74,7 +74,7 @@ const Division = () => {
     <div>
       <Dialog>
         <DialogTrigger>
-          <div className="flex items-center bg-black px-3 py-2 text-white">
+          <div className="flex items-center bg-black px-3 py-2 dark:bg-white dark:text-black text-white">
             <PlusCircle className="mr-2 h-4 w-4" />
             Create Division
           </div>
