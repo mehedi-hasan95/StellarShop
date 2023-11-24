@@ -36,6 +36,13 @@ const MyProfile = () => {
                 </Link>
               </Button>
             )}
+            {data?.user?.role === "seller" && (
+              <Button asChild variant={"outline"} className={cn("w-full")}>
+                <Link href="/seller">
+                  <User2 className="mr-2 h-4 w-4" /> Seller
+                </Link>
+              </Button>
+            )}
             <Button
               variant={"outline"}
               className={cn("w-full")}
