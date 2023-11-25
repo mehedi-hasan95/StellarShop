@@ -45,15 +45,16 @@ enum roleEnam {
 }
 
 model User {
-  id             String    @id @default(cuid())
+  id             String     @id @default(cuid())
   name           String?
-  email          String?   @unique
+  email          String?    @unique
   emailVerified  DateTime?
   image          String?
   hasbedPassword String?
-  role           roleEnam  @default(buyer)
+  role           roleEnam   @default(buyer)
   accounts       Account[]
   sessions       Session[]
+  Products       Products[]
 }
 
 model VerificationToken {
@@ -75,14 +76,35 @@ model Division {
   name     String     @unique
   image    String?
   District District[]
+  Products Products[]
 }
 
 model District {
-  id         String   @id @default(cuid())
-  name       String   @unique
+  id         String     @id @default(cuid())
+  name       String     @unique
   image      String?
   divisionId String
-  division   Division @relation(fields: [divisionId], references: [id], onDelete: Cascade)
+  division   Division   @relation(fields: [divisionId], references: [id], onDelete: Cascade)
+  Products   Products[]
 
   @@index([divisionId])
+}
+
+model Products {
+  id         String   @id @default(cuid())
+  title      String
+  image      String?
+  short_desc String
+  desc       String
+  isNew      Boolean?
+  sellerId   String
+  user       User     @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  divisionId String
+  division   Division @relation(fields: [divisionId], references: [id], onDelete: Cascade)
+  districtId String
+  district   District @relation(fields: [districtId], references: [id], onDelete: Cascade)
+
+  @@index([divisionId])
+  @@index([districtId])
+  @@index([sellerId])
 }
