@@ -26,6 +26,7 @@ import {
 import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
 import { useState } from "react";
+import ImageUpload from "@/components/custom/ImageUpload";
 // FormSchema
 const formSchema = z
   .object({
@@ -37,6 +38,9 @@ const formSchema = z
     }),
 
     role: z.string().min(2, {
+      message: "Username must be at least 2 characters.",
+    }),
+    imageUrl: z.string().min(2, {
       message: "Username must be at least 2 characters.",
     }),
     password: z.string().min(2, {
@@ -63,6 +67,7 @@ const SignIn = () => {
       email: "",
       password: "",
       confirm: "",
+      imageUrl: "",
       role: "buyer",
     },
   });
@@ -166,6 +171,28 @@ const SignIn = () => {
                 </FormItem>
               )}
             />
+
+            {/* Test  */}
+            <FormField
+              control={form.control}
+              name="imageUrl"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Image</FormLabel>
+                  <FormControl>
+                    <ImageUpload
+                      value={field.value ? [field.value] : []}
+                      disabled={loading}
+                      onChange={(url) => field.onChange(url)}
+                      onRemove={() => field.onChange("")}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {/* Test  */}
+
             <FormField
               control={form.control}
               name="confirm"
