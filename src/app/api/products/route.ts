@@ -44,3 +44,17 @@ export async function POST(req: Request) {
     return NextResponse.json({ msg: "faill", error });
   }
 }
+
+export async function GET(req: Request) {
+  try {
+    const session = await getAuthSession();
+    const products = await prismadb.products.findMany({
+      where: {
+        sellerId: session?.user.id,
+      },
+    });
+    return NextResponse.json({ msg: "success", products });
+  } catch (error) {
+    return NextResponse.json({ msg: "faill", error });
+  }
+}
