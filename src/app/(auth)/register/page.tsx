@@ -40,7 +40,7 @@ const formSchema = z
     role: z.string().min(2, {
       message: "Username must be at least 2 characters.",
     }),
-    imageUrl: z.string().min(2, {
+    image: z.string().min(2, {
       message: "Username must be at least 2 characters.",
     }),
     password: z.string().min(2, {
@@ -67,7 +67,7 @@ const SignIn = () => {
       email: "",
       password: "",
       confirm: "",
-      imageUrl: "",
+      image: "",
       role: "buyer",
     },
   });
@@ -160,25 +160,10 @@ const SignIn = () => {
             />
             <FormField
               control={form.control}
-              name="password"
+              name="image"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input type="password" placeholder="Password" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Test  */}
-            <FormField
-              control={form.control}
-              name="imageUrl"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Image</FormLabel>
+                  <FormLabel>Profile Image</FormLabel>
                   <FormControl>
                     <ImageUpload
                       value={field.value ? [field.value] : []}
@@ -191,8 +176,19 @@ const SignIn = () => {
                 </FormItem>
               )}
             />
-            {/* Test  */}
-
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" placeholder="Password" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="confirm"

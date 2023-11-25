@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { name, email, role, password } = body;
+    const { name, email, role, password, image } = body;
     const hasbedPassword = await bcrypt.hash(password, 12);
     const user = await prismadb.user.create({
       data: {
@@ -13,6 +13,7 @@ export async function POST(req: Request) {
         email,
         role,
         hasbedPassword,
+        image,
       },
     });
     return NextResponse.json({ msg: "success", user }, { status: 201 });

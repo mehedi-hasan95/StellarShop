@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Separator } from "@/components/ui/separator";
+import { PlusCircle } from "lucide-react";
 
 const Division = () => {
   const [data, setData] = useState([]);
@@ -14,7 +15,9 @@ const Division = () => {
   return (
     <div>
       <Button asChild>
-        <Link href="/admin/division/new">Create New Division</Link>
+        <Link href="/admin/division/new">
+          <PlusCircle className="mr-2 h-4 w-4" /> Create New Division
+        </Link>
       </Button>
       <Separator className="mt-7" />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 pt-10">
