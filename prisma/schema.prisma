@@ -97,12 +97,19 @@ model Products {
   short_desc String
   desc       String
   isNew      Boolean?
+  views      Int      @default(0)
+  sale       Int      @default(0)
+  price      String
+  quantity   String
+  outOfStoke Boolean  @default(false)
   sellerId   String
   user       User     @relation(fields: [sellerId], references: [id], onDelete: Cascade)
   divisionId String
   division   Division @relation(fields: [divisionId], references: [id], onDelete: Cascade)
   districtId String
   district   District @relation(fields: [districtId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   @@index([divisionId])
   @@index([districtId])

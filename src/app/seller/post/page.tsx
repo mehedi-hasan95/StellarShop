@@ -29,28 +29,34 @@ import ImageUpload from "@/components/custom/ImageUpload";
 
 const formSchema = z.object({
   title: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+    message: "Product Name must be at least 2 characters.",
   }),
   short_desc: z
     .string()
     .min(10, {
-      message: "Bio must be at least 10 characters.",
+      message: "Short Description must be at least 10 characters.",
     })
     .max(160, {
-      message: "Bio must not be longer than 30 characters.",
+      message: "Short Description must not be longer than 30 characters.",
     }),
   desc: z.string().min(10, {
-    message: "Bio must be at least 10 characters.",
+    message: "Description must be at least 10 characters.",
   }),
   isNew: z.boolean().default(false).optional(),
   divisionId: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+    message: "Selected division name",
   }),
   districtId: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+    message: "Selected district name",
   }),
-  image: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  image: z.string().min(0, {
+    message: "Image is required",
+  }),
+  price: z.string().min(1, {
+    message: "Price must be at least 1 characters.",
+  }),
+  quantity: z.string().min(1, {
+    message: "Quantity must be at least 2 characters.",
   }),
 });
 
@@ -64,7 +70,9 @@ const SellerPage = () => {
       isNew: true,
       divisionId: "",
       districtId: "",
-      image: "",
+      // image: "",
+      price: "1",
+      quantity: "1",
     },
   });
 
@@ -91,7 +99,7 @@ const SellerPage = () => {
   }, []);
   return (
     <div>
-      <h2 className="">Create New Product:</h2>
+      <h2 className="text-2xl font-bold pb-8">Create New Product:</h2>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
@@ -212,6 +220,32 @@ const SellerPage = () => {
                     onCheckedChange={field.onChange}
                   />
                 </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="price"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Price</FormLabel>
+                <FormControl>
+                  <Input placeholder="Price" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="quantity"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Quantity</FormLabel>
+                <FormControl>
+                  <Input placeholder="10" {...field} />
+                </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
