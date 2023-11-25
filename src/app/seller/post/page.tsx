@@ -58,6 +58,9 @@ const formSchema = z.object({
   quantity: z.string().min(1, {
     message: "Quantity must be at least 2 characters.",
   }),
+  catId: z.string().min(1, {
+    message: "Category must be at least 2 characters.",
+  }),
 });
 
 const SellerPage = () => {
@@ -70,16 +73,29 @@ const SellerPage = () => {
       isNew: true,
       divisionId: "",
       districtId: "",
-      // image: "",
+      image: "",
       price: "1",
       quantity: "1",
+      catId: "",
     },
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const response = await fetch("http://localhost:3000/api/products", {
+        method: "POST", // or 'PUT'
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      const result = await response.json();
+      console.log("Success:", result);
+    } catch (error) {
+      console.error("Error:", error);
+    }
     console.log(values);
   }
 
@@ -96,6 +112,12 @@ const SellerPage = () => {
     fetch("http://localhost:3000/api/district")
       .then((response) => response.json())
       .then((data) => setDData(data));
+  }, []);
+  const [cat, setCat] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:3000/api/category")
+      .then((response) => response.json())
+      .then((data) => setCat(data));
   }, []);
   return (
     <div>
@@ -190,6 +212,34 @@ const SellerPage = () => {
                     </SelectTrigger>
                     <SelectContent>
                       {dData?.district?.map((item: any) => (
+                        <SelectItem
+                          key={item.id}
+                          value={item.id}
+                          className="capitalize"
+                        >
+                          {item.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="catId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Category</FormLabel>
+                <FormControl>
+                  <Select onValueChange={field.onChange}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Choose Category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {cat?.category?.map((item: any) => (
                         <SelectItem
                           key={item.id}
                           value={item.id}
