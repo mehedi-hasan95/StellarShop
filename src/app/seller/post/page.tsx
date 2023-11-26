@@ -96,8 +96,8 @@ const SellerPage = () => {
       });
 
       const result = await response.json();
-      if (result.post === "success") {
-        router.push("/admin/myposts");
+      if (result.msg === "success") {
+        router.push("/myposts");
       }
     } catch (error) {
       console.error("Error:", error);
