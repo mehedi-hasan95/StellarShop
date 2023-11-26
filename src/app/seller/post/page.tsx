@@ -26,6 +26,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import ImageUpload from "@/components/custom/ImageUpload";
+import { Division, District, Category } from "@prisma/client";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -64,6 +66,7 @@ const formSchema = z.object({
 });
 
 const SellerPage = () => {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -83,6 +86,7 @@ const SellerPage = () => {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
+      setLoading(true);
       const response = await fetch("http://localhost:3000/api/products", {
         method: "POST", // or 'PUT'
         headers: {
@@ -92,28 +96,45 @@ const SellerPage = () => {
       });
 
       const result = await response.json();
-      console.log("Success:", result);
+      if (result.post === "success") {
+        router.push("/admin/myposts");
+      }
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      setLoading(false);
     }
-    console.log(values);
   }
 
   //   division
-  const [data, setData] = useState([]);
+  interface DivisionProps {
+    msg: string;
+    division: Division[];
+  }
+  const [data, setData] = useState<DivisionProps>();
   useEffect(() => {
     fetch("http://localhost:3000/api/division")
       .then((response) => response.json())
       .then((data) => setData(data));
   }, []);
   //   District
-  const [dData, setDData] = useState([]);
+  interface DistrictProps {
+    msg: string;
+    district: District[];
+  }
+  const [dData, setDData] = useState<DistrictProps>();
   useEffect(() => {
     fetch("http://localhost:3000/api/district")
       .then((response) => response.json())
       .then((data) => setDData(data));
   }, []);
-  const [cat, setCat] = useState([]);
+
+  // Category
+  interface CatProps {
+    msg: string;
+    category: Category[];
+  }
+  const [cat, setCat] = useState<CatProps>();
   useEffect(() => {
     fetch("http://localhost:3000/api/category")
       .then((response) => response.json())

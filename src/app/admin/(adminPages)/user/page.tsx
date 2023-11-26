@@ -1,8 +1,19 @@
-import { getUserData } from "@/lib/apiData/apiData";
-import Image from "next/image";
+"use client";
 
-const User = async () => {
-  const data = await getUserData();
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { User } from "@prisma/client";
+interface DataProps {
+  msg: string;
+  user: User[];
+}
+const User = () => {
+  const [data, setData] = useState<DataProps>();
+  useEffect(() => {
+    fetch("http://localhost:3000/api/user")
+      .then((response) => response.json())
+      .then((data) => setData(data));
+  }, []);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {data?.user?.map((item: any, i: number) => (
