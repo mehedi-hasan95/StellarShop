@@ -3,8 +3,13 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+import { User } from "@prisma/client";
+interface DataProps {
+  msg: string;
+  user: User[];
+}
 const Seller = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<DataProps>();
   useEffect(() => {
     fetch("http://localhost:3000/api/seller")
       .then((response) => response.json())

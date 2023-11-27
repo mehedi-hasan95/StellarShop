@@ -1,22 +1,16 @@
-"use client";
+// "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { getProductsData } from "@/lib/apiData/apiData";
 
-const MyPosts = () => {
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:3000/api/products")
-      .then((response) => response.json())
-      .then((data) => setData(data));
-  }, []);
-
+const MyPosts = async () => {
+  const data = await getProductsData();
   return (
     <div>
       {data?.products?.map((item: any) => (
         <div key={item.id}>
           <Image src={item.image} alt="" height={500} width={500} />
-          <Link href={`/product/${item.id}`}>{item.title}</Link>
+          <Link href={`/seller/myposts/${item.id}`}>{item.title}</Link>
           <p>{item.short_desc}</p>
         </div>
       ))}

@@ -4,9 +4,13 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import { PlusCircle } from "lucide-react";
-
+import { Division } from "@prisma/client";
+interface DivisionProps {
+  msg: string;
+  division: Division[];
+}
 const Division = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<DivisionProps>();
   useEffect(() => {
     fetch("http://localhost:3000/api/division")
       .then((response) => response.json())
