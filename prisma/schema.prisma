@@ -94,7 +94,6 @@ model District {
 model Products {
   id         String   @id @default(cuid())
   title      String
-  image      String?
   desc       String
   short_desc String
   isNew      Boolean  @default(false)
@@ -113,9 +112,21 @@ model Products {
   district   District @relation(fields: [districtId], references: [id], onDelete: Cascade)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+  images     Image[]
 
   @@index([divisionId])
   @@index([districtId])
   @@index([sellerId])
   @@index([catId])
+}
+
+model Image {
+  id        String   @id @default(uuid())
+  productId String
+  product   Products @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([productId])
 }

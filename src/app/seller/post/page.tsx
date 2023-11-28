@@ -51,9 +51,7 @@ const formSchema = z.object({
   districtId: z.string().min(2, {
     message: "Selected district name",
   }),
-  image: z.string().min(0, {
-    message: "Image is required",
-  }),
+  images: z.object({ url: z.string() }).array(),
   price: z.string().min(1, {
     message: "Price must be at least 1 characters.",
   }),
@@ -76,7 +74,7 @@ const SellerPage = () => {
       isNew: true,
       divisionId: "",
       districtId: "",
-      image: "",
+      images: [],
       price: "1",
       quantity: "1",
       catId: "",
@@ -97,7 +95,7 @@ const SellerPage = () => {
 
       const result = await response.json();
       if (result.msg === "success") {
-        router.push("/myposts");
+        router.push("/seller/myposts");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -322,16 +320,22 @@ const SellerPage = () => {
           />
           <FormField
             control={form.control}
-            name="image"
+            name="images"
             render={({ field }) => (
               <FormItem className="">
                 <FormLabel>Add Image</FormLabel>
                 <FormControl>
                   <ImageUpload
-                    value={field.value ? [field.value] : []}
+                    value={field.value.map((image) => image.url)}
                     disabled={loading}
-                    onChange={(url) => field.onChange(url)}
-                    onRemove={() => field.onChange("")}
+                    onChange={(url) =>
+                      field.onChange([...field.value, { url }])
+                    }
+                    onRemove={(url) =>
+                      field.onChange([
+                        ...field.value.filter((current) => current.url !== url),
+                      ])
+                    }
                   />
                 </FormControl>
               </FormItem>

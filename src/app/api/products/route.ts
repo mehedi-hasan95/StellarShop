@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     const {
       title,
-      image,
+      images,
       isNew,
       desc,
       short_desc,
@@ -24,7 +24,11 @@ export async function POST(req: Request) {
     const products = await prismadb.products.create({
       data: {
         title,
-        image,
+        images: {
+          createMany: {
+            data: [...images.map((image: { url: string }) => image)],
+          },
+        },
         isNew,
         desc,
         short_desc,
@@ -51,6 +55,9 @@ export async function GET(req: Request) {
     const products = await prismadb.products.findMany({
       where: {
         sellerId: session?.user.id,
+      },
+      include: {
+        images: true,
       },
     });
     return NextResponse.json({ msg: "success", products });

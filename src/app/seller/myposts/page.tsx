@@ -9,8 +9,13 @@ const MyPosts = async () => {
     <div>
       {data?.products?.map((item: any) => (
         <div key={item.id}>
-          <Image src={item.image} alt="" height={500} width={500} />
-          <Link href={`/seller/myposts/${item.id}`}>{item.title}</Link>
+          <Image src={item.images[0].url} alt="" height={500} width={500} />
+          <Link
+            href={`/seller/myposts/${item.id}`}
+            className="text-2xl font-semibold"
+          >
+            {item.title}
+          </Link>
           <p>{item.short_desc}</p>
         </div>
       ))}
