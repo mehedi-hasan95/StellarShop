@@ -43,3 +43,15 @@ export async function getSingleData(productId: string) {
 
   return res.json();
 }
+
+// Category
+// Single products
+export async function getCategoryData() {
+  const res = await fetch(process.env.BASE_URL + `category`);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}

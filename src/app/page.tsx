@@ -1,13 +1,24 @@
 import MyProfile from "@/components/custom/MyProfile";
 import Logo from "@/components/custom/Logo";
 import Image from "next/image";
+import SearchBar from "@/components/custom/home/SearchBar";
+import ByCategory from "@/components/custom/home/ByCategory";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <div>
       <div className="container mx-auto p-4 flex justify-between items-center">
-        <Logo />
+        <div className="flex gap-5 items-center">
+          <Logo />
+          <Link href="/category">Category</Link>
+        </div>
         <MyProfile />
+      </div>
+      <SearchBar />
+      <div className="container mx-auto p-4">
+        <h2 className="text-lg font-bold py-10">Search by Category</h2>
+        <ByCategory />
       </div>
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
         <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">

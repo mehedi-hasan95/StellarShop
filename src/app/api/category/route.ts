@@ -16,7 +16,15 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
   try {
-    const category = await prismadb.category.findMany();
+    const category = await prismadb.category.findMany({
+      include: {
+        _count: {
+          select: {
+            Products: true,
+          },
+        },
+      },
+    });
     return NextResponse.json({ msg: "success", category });
   } catch (error) {
     return NextResponse.json({ msg: "faill", error });

@@ -38,8 +38,8 @@ const formSchema = z.object({
     .min(10, {
       message: "Short Description must be at least 10 characters.",
     })
-    .max(160, {
-      message: "Short Description must not be longer than 30 characters.",
+    .max(260, {
+      message: "Short Description must not be longer than 260 characters.",
     }),
   desc: z.string().min(10, {
     message: "Description must be at least 10 characters.",
