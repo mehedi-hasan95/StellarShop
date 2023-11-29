@@ -3,6 +3,7 @@ import { getSingleData } from "@/lib/apiData/apiData";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { DollarSign } from "lucide-react";
 
 interface productidProps {
   params: {
@@ -11,8 +12,7 @@ interface productidProps {
 }
 const ProductId: React.FC<productidProps> = async ({ params }) => {
   const data = await getSingleData(params.productId);
-  console.log(data);
-  if (data.msg === "success") {
+  if (data?.msg === "success") {
     return (
       <div className="container mx-auto p-4">
         <Tabs defaultValue={data?.product?.images[0]?.id}>
@@ -50,7 +50,33 @@ const ProductId: React.FC<productidProps> = async ({ params }) => {
           </div>
         </Tabs>
         <div className="pt-10">
-          <h2 className="text-2xl font-semibold">{data?.product?.title}</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 border-2 rounded-lg border-gray-200 p-5 mb-5">
+            <h3 className="text-lg font-semibold flex gap-2">
+              Price:{" "}
+              <span className="flex items-center">
+                <DollarSign size={14} /> {data?.product?.price}
+              </span>
+            </h3>
+            <h4 className="">
+              Condition:{" "}
+              <span>{data?.product?.isNew === true ? "New" : "Used"}</span>
+            </h4>
+            <h4>
+              Type:{" "}
+              <span className="capitalize">{data.product.category.name}</span>
+            </h4>
+            <h4>
+              Division:{" "}
+              <span className="capitalize">{data.product.division.name}</span>
+            </h4>
+            <h4>
+              District:{" "}
+              <span className="capitalize">{data.product.district.name}</span>
+            </h4>
+          </div>
+          <h2 className="text-2xl font-semibold pb-3">
+            {data?.product?.title}
+          </h2>
           <p>{data?.product?.desc}</p>
         </div>
       </div>

@@ -16,6 +16,9 @@ export async function GET(
       },
       include: {
         images: true,
+        category: true,
+        district: true,
+        division: true,
       },
     });
     if (product) {
