@@ -35,7 +35,9 @@ export async function getProductsData() {
 
 // Single products
 export async function getSingleData(productId: string) {
-  const res = await fetch(process.env.BASE_URL + `products/${productId}`);
+  const res = await fetch(process.env.BASE_URL + `products/${productId}`, {
+    cache: "no-store",
+  });
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");

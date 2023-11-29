@@ -1,6 +1,4 @@
-import Logo from "@/components/custom/Logo";
-import MyProfile from "@/components/custom/MyProfile";
-import Link from "next/link";
+import MainMenu from "@/components/custom/MainMenu";
 
 export default function RootLayout({
   children,
@@ -9,13 +7,7 @@ export default function RootLayout({
 }) {
   return (
     <div>
-      <div className="container mx-auto p-4 flex justify-between items-center">
-        <div className="flex gap-5 items-center">
-          <Logo />
-          <Link href="/category">Category</Link>
-        </div>
-        <MyProfile />
-      </div>
+      <MainMenu />
       {children}
     </div>
   );

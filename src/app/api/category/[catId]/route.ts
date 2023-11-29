@@ -11,7 +11,11 @@ export async function GET(
         id: params.catId,
       },
       include: {
-        Products: true,
+        Products: {
+          include: {
+            images: true,
+          },
+        },
       },
     });
     return NextResponse.json({ msg: "success", category });
