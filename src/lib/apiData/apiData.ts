@@ -68,3 +68,14 @@ export async function getSingleCatData(id: string) {
 
   return res.json();
 }
+
+//All products
+export async function getAllProductsData() {
+  const res = await fetch(process.env.BASE_URL + `allproducts`);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
