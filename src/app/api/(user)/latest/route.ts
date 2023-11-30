@@ -11,10 +11,10 @@ export async function GET(req: Request) {
           gte: threeDaysAgo,
         },
       },
-      orderBy: {
-        views: "desc",
-      },
       take: 5,
+      orderBy: {
+        createdAt: "desc",
+      },
     });
     return NextResponse.json({ msg: "success", product });
   } catch (error) {

@@ -59,6 +59,9 @@ export async function GET(req: Request) {
       include: {
         images: true,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
     return NextResponse.json({ msg: "success", products });
   } catch (error) {

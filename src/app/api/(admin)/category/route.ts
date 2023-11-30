@@ -24,6 +24,9 @@ export async function GET(req: Request) {
           },
         },
       },
+      orderBy: {
+        name: "asc",
+      },
     });
     return NextResponse.json({ msg: "success", category });
   } catch (error) {
