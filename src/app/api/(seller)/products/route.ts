@@ -1,6 +1,6 @@
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
-import { getAuthSession } from "../auth/[...nextauth]/route";
+import { getAuthSession } from "../../auth/[...nextauth]/route";
 
 export async function POST(req: Request) {
   try {

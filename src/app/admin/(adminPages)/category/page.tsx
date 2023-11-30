@@ -6,9 +6,13 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
+import { Category } from "@prisma/client";
 
+interface CategoryPrpos {
+  category: Category[];
+}
 const Category = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<CategoryPrpos>();
   useEffect(() => {
     fetch("http://localhost:3000/api/category")
       .then((response) => response.json())
