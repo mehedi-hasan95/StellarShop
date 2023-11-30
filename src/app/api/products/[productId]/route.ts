@@ -19,6 +19,7 @@ export async function GET(
         category: true,
         district: true,
         division: true,
+        user: true,
       },
     });
     if (product) {
