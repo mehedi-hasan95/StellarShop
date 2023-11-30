@@ -22,9 +22,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import ImageUpload from "@/components/custom/ImageUpload";
+import useSWR from "swr";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -74,12 +75,7 @@ const CreateDistrict = () => {
     }
   }
 
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:3000/api/division")
-      .then((response) => response.json())
-      .then((data) => setData(data));
-  }, []);
+  const { data } = useSWR("/api/division");
 
   return (
     <Form {...form}>

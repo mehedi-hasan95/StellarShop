@@ -79,3 +79,39 @@ export async function getAllProductsData() {
 
   return res.json();
 }
+
+// Latest product
+
+export async function getLatestProductData() {
+  const res = await fetch(process.env.BASE_URL + `latest`);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
+
+// Trending
+
+export async function getTrendingData() {
+  const res = await fetch(process.env.BASE_URL + `trending`);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
+
+// Populer
+
+export async function getPopulerData() {
+  const res = await fetch(process.env.BASE_URL + `populer`);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}

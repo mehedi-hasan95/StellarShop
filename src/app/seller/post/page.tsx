@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -26,8 +26,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import ImageUpload from "@/components/custom/ImageUpload";
-import { Division, District, Category } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import useSWR from "swr";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -105,39 +105,12 @@ const SellerPage = () => {
   }
 
   //   division
-  interface DivisionProps {
-    msg: string;
-    division: Division[];
-  }
-  const [data, setData] = useState<DivisionProps>();
-  useEffect(() => {
-    fetch("http://localhost:3000/api/division")
-      .then((response) => response.json())
-      .then((data) => setData(data));
-  }, []);
+  const { data } = useSWR("/api/division");
   //   District
-  interface DistrictProps {
-    msg: string;
-    district: District[];
-  }
-  const [dData, setDData] = useState<DistrictProps>();
-  useEffect(() => {
-    fetch("http://localhost:3000/api/district")
-      .then((response) => response.json())
-      .then((data) => setDData(data));
-  }, []);
-
+  const { data: dData } = useSWR("/api/district");
   // Category
-  interface CatProps {
-    msg: string;
-    category: Category[];
-  }
-  const [cat, setCat] = useState<CatProps>();
-  useEffect(() => {
-    fetch("http://localhost:3000/api/category")
-      .then((response) => response.json())
-      .then((data) => setCat(data));
-  }, []);
+
+  const { data: cat } = useSWR("/api/category");
   return (
     <div>
       <h2 className="text-2xl font-bold pb-8">Create New Product:</h2>

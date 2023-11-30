@@ -2,22 +2,13 @@
 import { Button } from "@/components/ui/button";
 
 import { PlusCircle } from "lucide-react";
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
-import { Category } from "@prisma/client";
+import useSWR from "swr";
 
-interface CategoryPrpos {
-  category: Category[];
-}
 const Category = () => {
-  const [data, setData] = useState<CategoryPrpos>();
-  useEffect(() => {
-    fetch("http://localhost:3000/api/category")
-      .then((response) => response.json())
-      .then((data) => setData(data));
-  }, []);
+  const { data } = useSWR("/api/category");
   return (
     <div>
       <Button asChild>

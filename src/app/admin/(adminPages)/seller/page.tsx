@@ -1,20 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import useSWR from "swr";
 
-import { User } from "@prisma/client";
-interface DataProps {
-  msg: string;
-  user: User[];
-}
 const Seller = () => {
-  const [data, setData] = useState<DataProps>();
-  useEffect(() => {
-    fetch("http://localhost:3000/api/seller")
-      .then((response) => response.json())
-      .then((data) => setData(data));
-  }, []);
+  const { data } = useSWR("/api/seller", {
+    refreshInterval: 0,
+  });
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {data?.user?.map((item: any, i: number) => (

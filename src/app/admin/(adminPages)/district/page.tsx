@@ -1,25 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 
-import { District } from "@prisma/client";
-interface DistrictProps {
-  msg: string;
-  district: District[];
-}
+import useSWR from "swr";
+
 const District = () => {
   // District
-  const [data, setData] = useState<DistrictProps>();
-  useEffect(() => {
-    fetch("http://localhost:3000/api/district")
-      .then((response) => response.json())
-      .then((data) => setData(data));
-  }, []);
+  const { data } = useSWR("/api/district");
   return (
     <div>
       <Button asChild>
