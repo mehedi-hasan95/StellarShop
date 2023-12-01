@@ -7,6 +7,13 @@ export async function GET(req: Request) {
       orderBy: {
         views: "desc",
       },
+      include: {
+        images: {
+          select: {
+            url: true,
+          },
+        },
+      },
       take: 5,
     });
     return NextResponse.json({ msg: "success", product });

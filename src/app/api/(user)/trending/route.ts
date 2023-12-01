@@ -11,6 +11,13 @@ export async function GET(req: Request) {
           gte: threeDaysAgo,
         },
       },
+      include: {
+        images: {
+          select: {
+            url: true,
+          },
+        },
+      },
       orderBy: {
         views: "desc",
       },
