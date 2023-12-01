@@ -11,6 +11,9 @@ export async function GET(req: Request) {
           gte: threeDaysAgo,
         },
       },
+      include: {
+        user: true,
+      },
       take: 5,
       orderBy: {
         createdAt: "desc",

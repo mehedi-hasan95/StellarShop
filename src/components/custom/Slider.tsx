@@ -6,9 +6,14 @@ import "swiper/css/navigation";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import useSWR from "swr";
 import Image from "next/image";
+import Link from "next/link";
+import { DollarSign, ShoppingBag } from "lucide-react";
+import { Button } from "../ui/button";
 
 interface ProductProps {
   id: string;
+  title: string;
+  price: string;
   images: { url: string }[];
 }
 interface SliderProps {
@@ -56,11 +61,42 @@ const Slider: React.FC<SliderProps> = ({
         className="mySwiper"
       >
         {data?.product?.map((item) => (
-          <p key={item.id}>
+          <div key={item.id}>
             <SwiperSlide>
-              <Image src={item.images[0].url} alt="" height={500} width={500} />
+              <div className="border-2 border-gray-400 rounded-lg px-5 py-10">
+                <Image
+                  src={item.images[0].url}
+                  alt=""
+                  height={500}
+                  width={500}
+                  className="max-h-64"
+                />
+                <Link
+                  className="text-xl font-bold"
+                  href={`/products/${item.id}`}
+                >
+                  {item.title}
+                </Link>
+                <div>
+                  <h4 className="flex items-center gap-1 justify-between pt-5">
+                    <div>
+                      Price:{" "}
+                      <span className="flex items-center">
+                        <DollarSign />
+                        {item.price}
+                      </span>
+                    </div>
+                    <div>
+                      <Button>
+                        <ShoppingBag className="mr-2 h-4 w-4" />
+                        Add to Cart
+                      </Button>
+                    </div>
+                  </h4>
+                </div>
+              </div>
             </SwiperSlide>
-          </p>
+          </div>
         ))}
       </Swiper>
     </div>

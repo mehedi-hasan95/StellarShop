@@ -17,11 +17,12 @@ export async function GET(req: Request) {
             url: true,
           },
         },
+        user: true,
       },
       orderBy: {
         views: "desc",
       },
-      take: 5,
+      take: 6,
     });
     return NextResponse.json({ msg: "success", product });
   } catch (error) {

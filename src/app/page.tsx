@@ -3,6 +3,7 @@ import ByCategory from "@/components/custom/home/ByCategory";
 import CreateAccount from "@/components/custom/home/CreateAccount";
 import MainMenu from "@/components/custom/MainMenu";
 import Slider from "@/components/custom/Slider";
+import Trending from "@/components/custom/home/Trending";
 
 export default function Home() {
   return (
@@ -15,6 +16,9 @@ export default function Home() {
       </div>
       <CreateAccount />
       <div className="container mx-auto p-4">
+        <h2 className="text-xl md:text-2xl font-bold py-10">
+          Our Populer Products
+        </h2>
         <Slider
           apiEndpoint="/api/populer"
           slidesPerView={1}
@@ -25,9 +29,14 @@ export default function Home() {
             768: { slidesPerView: 2, spaceBetween: 25 },
             1024: { slidesPerView: 3, spaceBetween: 30 },
           }}
-          pagination={{ clickable: true, dynamicBullets: true }}
           navigation={true}
         />
+      </div>
+      <div className="container mx-auto p-4">
+        <h2 className="text-xl md:text-2xl font-bold py-2 border-b-2 border-emerald-500 max-w-max">
+          Our Tending product:
+        </h2>
+        <Trending />
       </div>
     </div>
   );

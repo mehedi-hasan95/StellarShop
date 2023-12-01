@@ -85,7 +85,7 @@ const SellerPage = () => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:3000/api/products", {
+      const response = await fetch("/api/products", {
         method: "POST", // or 'PUT'
         headers: {
           "Content-Type": "application/json",
