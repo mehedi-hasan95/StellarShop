@@ -1,5 +1,8 @@
+import { Image } from "@prisma/client";
+
 export interface Product {
   id: string;
-  name: string;
+  title: string;
   price: string;
+  images: Image[];
 }
