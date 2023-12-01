@@ -9,13 +9,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { DollarSign } from "lucide-react";
 import AddToCart from "./AddToCart";
-
 interface ProductProps {
   id: string;
   title: string;
   price: string;
   images: { url: string }[];
 }
+
 interface SliderProps {
   apiEndpoint: string;
   slidesPerView: number;
@@ -88,7 +88,7 @@ const Slider: React.FC<SliderProps> = ({
                       </span>
                     </div>
                     <div>
-                      <AddToCart />
+                      <AddToCart data={item as any} />
                     </div>
                   </h4>
                 </div>
