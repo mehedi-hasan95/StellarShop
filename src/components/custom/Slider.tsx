@@ -2,7 +2,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Autoplay, Pagination } from "swiper/modules";
+import "swiper/css/navigation";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import useSWR from "swr";
 import Image from "next/image";
 
@@ -19,6 +20,11 @@ interface SliderProps {
     disableOnInteraction: boolean;
   };
   breakpoints?: Record<number, { slidesPerView: number; spaceBetween: number }>;
+  pagination?: {
+    dynamicBullets: boolean;
+    clickable: boolean;
+  };
+  navigation?: boolean;
 }
 const Slider: React.FC<SliderProps> = ({
   apiEndpoint,
@@ -26,6 +32,8 @@ const Slider: React.FC<SliderProps> = ({
   spaceBetween,
   autoPlay,
   breakpoints,
+  pagination,
+  navigation,
 }) => {
   const { data } = useSWR<{ product: ProductProps[] }>(apiEndpoint);
   const swiperAutoplayConfig = autoPlay
@@ -37,16 +45,14 @@ const Slider: React.FC<SliderProps> = ({
   return (
     <div>
       <Swiper
-        pagination={{
-          dynamicBullets: true,
-          clickable: true,
-        }}
+        pagination={pagination}
+        navigation={navigation}
         breakpoints={breakpoints}
         loop={true}
         slidesPerView={slidesPerView}
         spaceBetween={spaceBetween}
         autoplay={swiperAutoplayConfig}
-        modules={[Pagination, Autoplay]}
+        modules={[Pagination, Autoplay, Navigation]}
         className="mySwiper"
       >
         {data?.product?.map((item) => (

@@ -25,6 +25,8 @@ export default function Home() {
             768: { slidesPerView: 2, spaceBetween: 25 },
             1024: { slidesPerView: 3, spaceBetween: 30 },
           }}
+          pagination={{ clickable: true, dynamicBullets: true }}
+          navigation={true}
         />
       </div>
     </div>
