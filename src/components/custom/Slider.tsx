@@ -7,8 +7,8 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import useSWR from "swr";
 import Image from "next/image";
 import Link from "next/link";
-import { DollarSign, ShoppingBag } from "lucide-react";
-import { Button } from "../ui/button";
+import { DollarSign } from "lucide-react";
+import AddToCart from "./AddToCart";
 
 interface ProductProps {
   id: string;
@@ -31,6 +31,7 @@ interface SliderProps {
   };
   navigation?: boolean;
 }
+
 const Slider: React.FC<SliderProps> = ({
   apiEndpoint,
   slidesPerView,
@@ -87,10 +88,7 @@ const Slider: React.FC<SliderProps> = ({
                       </span>
                     </div>
                     <div>
-                      <Button>
-                        <ShoppingBag className="mr-2 h-4 w-4" />
-                        Add to Cart
-                      </Button>
+                      <AddToCart />
                     </div>
                   </h4>
                 </div>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Logo from "./Logo";
 import MyProfile from "./MyProfile";
+import ShoppingCart from "./ShoppingCart";
 
 const MainMenu = () => {
   return (
@@ -10,7 +11,10 @@ const MainMenu = () => {
         <Link href="/category">Category</Link>
         <Link href="/products">Products</Link>
       </div>
-      <MyProfile />
+      <div className="flex gap-2 items-center">
+        <ShoppingCart />
+        <MyProfile />
+      </div>
     </div>
   );
 };
