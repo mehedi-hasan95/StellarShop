@@ -78,8 +78,8 @@ const Slider: React.FC<SliderProps> = ({
                   {item.title}
                 </Link>
                 <div>
-                  <h4 className="flex items-center gap-1 justify-between pt-5">
-                    <div>
+                  <h4 className="flex flex-col gap-1 pt-5">
+                    <div className="flex">
                       Price:{" "}
                       <span className="flex items-center">
                         <DollarSign />

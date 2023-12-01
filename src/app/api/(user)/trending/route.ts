@@ -22,7 +22,7 @@ export async function GET(req: Request) {
       orderBy: {
         views: "desc",
       },
-      take: 6,
+      take: 5,
     });
     return NextResponse.json({ msg: "success", product });
   } catch (error) {

@@ -13,6 +13,11 @@ export async function GET(req: Request) {
       },
       include: {
         user: true,
+        images: {
+          select: {
+            url: true,
+          },
+        },
       },
       take: 5,
       orderBy: {
