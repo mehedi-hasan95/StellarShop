@@ -21,7 +21,7 @@ const ByCategory = async () => {
           />
           <div>
             <h4 className="text-lg">{item.name}</h4>
-            <p>{item._count.Products} Items</p>
+            <p>{item._count.products} Items</p>
           </div>
         </Link>
       ))}

@@ -6,7 +6,6 @@ import { Expand, Heart, MessagesSquare, Share2, ThumbsUp } from "lucide-react";
 import AddToCart from "./AddToCart";
 import Currency from "./Currency";
 import { useEffect, useState } from "react";
-import useCart from "@/hook/useCart";
 
 interface CardProps {
   data: {
@@ -26,7 +25,6 @@ const Card: React.FC<CardProps> = (props) => {
   useEffect(() => {
     setIsMounted(true);
   }, []);
-  const cart = useCart();
   if (!isMounted) {
     return null;
   }
