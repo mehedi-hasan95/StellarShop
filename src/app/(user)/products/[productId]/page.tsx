@@ -10,6 +10,7 @@ import {
 import { Bookmark, Contact, DollarSign, ShoppingCart } from "lucide-react";
 import ImageGallery from "@/components/custom/ImageGallery";
 import { Button } from "@/components/ui/button";
+import AddToCart from "@/components/custom/AddToCart";
 
 interface productidProps {
   params: {
@@ -78,10 +79,7 @@ const ProductId: React.FC<productidProps> = async ({ params }) => {
               <Bookmark className="mr-2 h-4 w-4" />
               Add to Wish List
             </Button>
-            <Button>
-              <ShoppingCart className="mr-2 h-4 w-4" />
-              Add to Cart
-            </Button>
+            <AddToCart data={data?.product} />
           </div>
         </div>
       </div>

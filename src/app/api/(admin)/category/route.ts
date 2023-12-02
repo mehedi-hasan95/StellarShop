@@ -20,7 +20,7 @@ export async function GET(req: Request) {
       include: {
         _count: {
           select: {
-            Products: true,
+            products: true,
           },
         },
       },

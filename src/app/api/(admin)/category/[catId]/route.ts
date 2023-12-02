@@ -11,7 +11,7 @@ export async function GET(
         id: params.catId,
       },
       include: {
-        Products: {
+        products: {
           include: {
             images: true,
           },
