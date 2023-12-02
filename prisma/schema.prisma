@@ -68,6 +68,7 @@ model VerificationToken {
 model Category {
   id       String     @id @default(cuid())
   name     String
+  slug     String     @unique
   image    String?
   products Products[]
 }
@@ -75,6 +76,7 @@ model Category {
 model Division {
   id       String     @id @default(cuid())
   name     String     @unique
+  slug     String     @unique
   image    String?
   District District[]
   products Products[]
@@ -83,6 +85,7 @@ model Division {
 model District {
   id         String     @id @default(cuid())
   name       String     @unique
+  slug       String     @unique
   image      String?
   divisionId String
   division   Division   @relation(fields: [divisionId], references: [id], onDelete: Cascade)
@@ -94,13 +97,14 @@ model District {
 model Products {
   id         String   @id @default(cuid())
   title      String
+  slug       String   @unique
   desc       String
   short_desc String
   isNew      Boolean  @default(false)
   views      Int      @default(0)
   sale       Int      @default(0)
-  price      String
-  quantity   String
+  price      Float
+  quantity   Int
   outOfStoke Boolean  @default(false)
   sellerId   String
   user       User     @relation(fields: [sellerId], references: [id], onDelete: Cascade)

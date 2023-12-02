@@ -4,9 +4,9 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { name, image } = body;
+    const { name, image, slug } = body;
     const category = await prismadb.category.create({
-      data: { name, image },
+      data: { name, image, slug },
     });
     return NextResponse.json({ msg: "success", category });
   } catch (error) {

@@ -29,6 +29,7 @@ const formSchema = z.object({
 const CreateCategory = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,8 +39,17 @@ const CreateCategory = () => {
     },
   });
 
+  // Convert slug
+  const slugify = (str: string) =>
+    str
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/[\s_-]+/g, "-")
+      .replace(/^-+|-+$/g, "");
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    const slug = slugify(values.name);
     try {
       setLoading(true);
       const response = await fetch("/api/category", {
@@ -47,7 +57,7 @@ const CreateCategory = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ name: values.name, image: values.image, slug }),
       });
 
       const result = await response.json();

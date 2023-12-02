@@ -10,9 +10,9 @@ export async function POST(req: Request) {
       redirect("/");
     }
     const body = await req.json();
-    const { name, image, divisionId } = body;
+    const { name, image, divisionId, slug } = body;
     const district = await prismadb.district.create({
-      data: { name, image, divisionId },
+      data: { name, image, divisionId, slug },
     });
     return NextResponse.json({ msg: "success", district });
   } catch (error) {

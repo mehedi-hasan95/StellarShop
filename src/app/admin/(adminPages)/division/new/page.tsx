@@ -39,16 +39,25 @@ const NewDisision = () => {
     },
   });
 
+  // Convert slug
+  const slugify = (str: string) =>
+    str
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/[\s_-]+/g, "-")
+      .replace(/^-+|-+$/g, "");
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    const slug = slugify(values.name);
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:3000/api/division", {
+      const response = await fetch("/api/division", {
         method: "POST", // or 'PUT'
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ name: values.name, image: values.image, slug }),
       });
 
       const result = await response.json();

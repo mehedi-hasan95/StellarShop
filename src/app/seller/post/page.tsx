@@ -52,11 +52,11 @@ const formSchema = z.object({
     message: "Selected district name",
   }),
   images: z.object({ url: z.string() }).array(),
-  price: z.string().min(1, {
+  price: z.coerce.number().min(1, {
     message: "Price must be at least 1 characters.",
   }),
-  quantity: z.string().min(1, {
-    message: "Quantity must be at least 2 characters.",
+  quantity: z.coerce.number().min(1, {
+    message: "Quantity must be at least 1 characters.",
   }),
   catId: z.string().min(1, {
     message: "Category must be at least 2 characters.",
@@ -75,14 +75,23 @@ const SellerPage = () => {
       divisionId: "",
       districtId: "",
       images: [],
-      price: "1",
-      quantity: "1",
+      price: 1,
+      quantity: 1,
       catId: "",
     },
   });
 
+  // Convert slug
+  const slugify = (str: string) =>
+    str
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/[\s_-]+/g, "-")
+      .replace(/^-+|-+$/g, "");
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    const slug = slugify(values.title);
     try {
       setLoading(true);
       const response = await fetch("/api/products", {
@@ -90,10 +99,21 @@ const SellerPage = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify({
+          title: values.title,
+          isNew: values.isNew,
+          divisionId: values.divisionId,
+          districtId: values.districtId,
+          images: values.images,
+          price: values.price,
+          quantity: values.quantity,
+          catId: values.catId,
+          slug,
+        }),
       });
 
       const result = await response.json();
+      console.log(result);
       if (result.msg === "success") {
         router.push("/seller/myposts");
       }
@@ -102,6 +122,7 @@ const SellerPage = () => {
     } finally {
       setLoading(false);
     }
+    console.log(values);
   }
 
   //   division
@@ -272,7 +293,7 @@ const SellerPage = () => {
               <FormItem>
                 <FormLabel>Price</FormLabel>
                 <FormControl>
-                  <Input placeholder="Price" {...field} />
+                  <Input type="number" placeholder="9.99" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -285,7 +306,7 @@ const SellerPage = () => {
               <FormItem>
                 <FormLabel>Quantity</FormLabel>
                 <FormControl>
-                  <Input placeholder="10" {...field} />
+                  <Input type="number" placeholder="10" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

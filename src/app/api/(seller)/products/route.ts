@@ -20,6 +20,7 @@ export async function POST(req: Request) {
       catId,
       divisionId,
       districtId,
+      slug,
     } = body;
     const products = await prismadb.products.create({
       data: {
@@ -41,6 +42,7 @@ export async function POST(req: Request) {
         divisionId,
         districtId,
         sellerId: session?.user.id as string,
+        slug,
       },
     });
     return NextResponse.json({ msg: "success", products });
