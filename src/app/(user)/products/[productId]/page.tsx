@@ -23,7 +23,7 @@ const ProductId: React.FC<productidProps> = async ({ params }) => {
     return (
       <div className="container mx-auto p-4 flex flex-col md:flex-row gap-5">
         <div className=" md:w-3/5">
-          <ImageGallery data={data} />
+          <ImageGallery data={data.product} />
           <div className="pt-10">
             <h2 className="text-2xl font-semibold pb-3">
               {data?.product?.title}

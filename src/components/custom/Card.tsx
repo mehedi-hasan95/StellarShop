@@ -7,6 +7,16 @@ import AddToCart from "./AddToCart";
 import Currency from "./Currency";
 import { useEffect, useState } from "react";
 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import ImageGallery from "./ImageGallery";
+
 interface CardProps {
   data: {
     products: ProductProps[];
@@ -16,8 +26,9 @@ interface CardProps {
 interface ProductProps {
   id: string;
   title: string;
-  images: { url: string }[];
+  images: { id: string; url: string }[];
   price: string;
+  short_desc: string;
 }
 const Card: React.FC<CardProps> = (props) => {
   const [isMounted, setIsMounted] = useState(false);
@@ -45,9 +56,25 @@ const Card: React.FC<CardProps> = (props) => {
             />
             <div className="opacity-0 group-hover:opacity-100 transition absolute w-full px-6 bottom-5">
               <div className="flex gap-x-6 justify-center">
-                <Button>
-                  <Expand size={20} />
-                </Button>
+                <Dialog>
+                  <DialogTrigger>
+                    <Button>
+                      <Expand size={20} />
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>{item.title}</DialogTitle>
+                      <DialogDescription>
+                        <div className="grid grid-cols-2 gap-5">
+                          <ImageGallery data={item} />
+                          <div className="text-lg pt-3">{item.short_desc}</div>
+                        </div>
+                      </DialogDescription>
+                    </DialogHeader>
+                  </DialogContent>
+                </Dialog>
+
                 <AddToCart data={item as any} />
               </div>
             </div>
