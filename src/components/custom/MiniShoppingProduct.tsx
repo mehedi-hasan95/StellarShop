@@ -17,39 +17,32 @@ const MiniShoppingProduct: React.FC<CartItemProps> = ({ data }) => {
   const onRemove = () => {
     cart.removeItem(data.id);
   };
-  const onAllRemove = () => {
-    cart.removeAll();
-  };
+
   return (
     <div>
-      <div className="flex justify-between items-center">
-        <div className="relative h-12 w-12 rounded-md overflow-hidden">
-          <Image
-            fill
-            src={data?.images[0]?.url}
-            alt=""
-            className="object-cover object-center"
-          />
+      <div className="flex justify-between items-center pb-5">
+        <div className="flex gap-2 w-full">
+          <div className="relative flex h-12 w-1/6 rounded-md overflow-hidden">
+            <Image
+              fill
+              src={data?.images[0]?.url}
+              alt=""
+              className="object-cover object-center"
+            />
+          </div>
+          <div className="flex w-5/6 flex-col gap-y-1">
+            <h3>{data.title}</h3>
+            <Currency value={data.price} />
+          </div>
         </div>
-        <h3>{data.title}</h3>
-        <Currency value={data.price} />
         <div>
           <button
             onClick={onRemove}
-            className="border rounded-full border-gray-500 p-3"
+            className="border rounded-full border-gray-500 p-1"
           >
-            <X size={15} />
+            <X size={10} />
           </button>
         </div>
-      </div>
-      <div className="pt-5 flex justify-between">
-        <Button asChild>
-          <Link href="/cart">Cart</Link>
-        </Button>
-        <Button variant={"destructive"} onClick={onAllRemove}>
-          <Trash className="mr-2 h-4 w-4" />
-          Remove All
-        </Button>
       </div>
     </div>
   );

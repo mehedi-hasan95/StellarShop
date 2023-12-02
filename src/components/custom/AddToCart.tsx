@@ -13,10 +13,11 @@ import {
 import { Button } from "../ui/button";
 import useCart from "@/hook/useCart";
 import { MouseEventHandler } from "react";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag, Trash } from "lucide-react";
 import { Product } from "@/type/types";
 import Image from "next/image";
 import MiniShoppingProduct from "./MiniShoppingProduct";
+import Link from "next/link";
 
 interface AddToCartProps {
   data: Product;
@@ -24,6 +25,9 @@ interface AddToCartProps {
 
 const AddToCart: React.FC<AddToCartProps> = ({ data }) => {
   const cart = useCart();
+  const onAllRemove = () => {
+    cart.removeAll();
+  };
   const existingItem = cart.items.find((item) => item.id === data.id);
   const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.stopPropagation();
@@ -61,6 +65,15 @@ const AddToCart: React.FC<AddToCartProps> = ({ data }) => {
                   <MiniShoppingProduct key={item.id} data={item} />
                 ))}
               </ul>
+              <div className="pt-10 flex justify-between">
+                <Button asChild>
+                  <Link href="/cart">Cart</Link>
+                </Button>
+                <Button variant={"destructive"} onClick={onAllRemove}>
+                  <Trash className="mr-2 h-4 w-4" />
+                  Remove All
+                </Button>
+              </div>
             </SheetDescription>
           </SheetHeader>
         </SheetContent>

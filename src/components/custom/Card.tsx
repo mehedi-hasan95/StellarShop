@@ -44,9 +44,9 @@ const Card: React.FC<CardProps> = (props) => {
       {props.data.products.map((item) => (
         <div
           key={item.id}
-          className="flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-900 dark:text-gray-100"
+          className="flex flex-col group max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-900 dark:text-gray-100"
         >
-          <div className="relative group">
+          <div className="relative">
             <Image
               src={item.images[0].url}
               alt=""
@@ -54,7 +54,7 @@ const Card: React.FC<CardProps> = (props) => {
               width={500}
               className="object-cover w-full mb-4 h-60 sm:h-96 dark:bg-gray-500 group-hover:opacity-50"
             />
-            <div className="opacity-0 group-hover:opacity-100 transition absolute w-full px-6 bottom-5">
+            <div className="opacity-0 group-hover:opacity-100 transition absolute w-full px-6 bottom-12">
               <div className="flex gap-x-6 justify-center">
                 <Dialog>
                   <DialogTrigger>

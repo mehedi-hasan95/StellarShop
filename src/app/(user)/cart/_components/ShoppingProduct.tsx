@@ -17,16 +17,20 @@ const ShoppingProduct: React.FC<CartItemProps> = ({ data }) => {
   };
   return (
     <div className="flex justify-between items-center">
-      <div className="relative h-24 w-24 rounded-md overflow-hidden sm:h-48 sm:w-48">
-        <Image
-          fill
-          src={data?.images[0]?.url}
-          alt=""
-          className="object-cover object-center"
-        />
+      <div className="flex gap-3 items-center overflow-hidden w-full">
+        <div className="relative flex h-24 w-1/3 rounded-md overflow-hidden sm:h-48 sm:w-48">
+          <Image
+            fill
+            src={data?.images[0]?.url}
+            alt=""
+            className="object-cover object-center"
+          />
+        </div>
+        <div className="flex flex-col w-2/3">
+          <h3 className="text-xl">{data.title}</h3>
+          <Currency value={data.price} />
+        </div>
       </div>
-      <h3>{data.title}</h3>
-      <Currency value={data.price} />
       <div>
         <button
           onClick={onRemove}
