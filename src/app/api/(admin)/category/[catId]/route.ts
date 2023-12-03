@@ -8,7 +8,7 @@ export async function GET(
   try {
     const category = await prismadb.category.findMany({
       where: {
-        id: params.catId,
+        slug: params.catId,
       },
       include: {
         products: {

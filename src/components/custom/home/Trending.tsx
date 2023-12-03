@@ -31,7 +31,7 @@ const Trending = async () => {
           <div className="absolute z-20 inset-0 bg-black opacity-50 group-hover:opacity-30 transition duration-200 ease-in-out"></div>
           <div className="absolute z-30 bottom-10 left-10">
             <Link
-              href={`/products/${item.id}`}
+              href={`/products/${item.slug}`}
               className={`text-xl md:text-2xl font-semibold text-white pb-2 md:pb-5 capitalize`}
             >
               {item.title}

@@ -29,6 +29,7 @@ interface ProductProps {
   images: { id: string; url: string }[];
   price: string;
   short_desc: string;
+  slug: string;
 }
 const Card: React.FC<CardProps> = (props) => {
   const [isMounted, setIsMounted] = useState(false);
@@ -82,7 +83,7 @@ const Card: React.FC<CardProps> = (props) => {
           <div className="py-5">
             <Link
               className="text-xl font-semibold"
-              href={`/products/${item.id}`}
+              href={`/products/${item.slug}`}
             >
               {item.title}
             </Link>

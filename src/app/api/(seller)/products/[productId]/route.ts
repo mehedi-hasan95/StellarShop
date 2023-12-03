@@ -11,7 +11,7 @@ export async function GET(
         views: { increment: 1 },
       },
       where: {
-        id: params.productId,
+        slug: params.productId,
       },
       include: {
         images: true,
