@@ -71,6 +71,8 @@ const SellerPage = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
+      desc: "",
+      short_desc: "",
       isNew: true,
       divisionId: "",
       districtId: "",
@@ -101,6 +103,8 @@ const SellerPage = () => {
         },
         body: JSON.stringify({
           title: values.title,
+          desc: values.desc,
+          short_desc: values.short_desc,
           isNew: values.isNew,
           divisionId: values.divisionId,
           districtId: values.districtId,
@@ -113,7 +117,6 @@ const SellerPage = () => {
       });
 
       const result = await response.json();
-      console.log(result);
       if (result.msg === "success") {
         router.push("/seller/myposts");
       }
@@ -122,7 +125,6 @@ const SellerPage = () => {
     } finally {
       setLoading(false);
     }
-    console.log(values);
   }
 
   //   division

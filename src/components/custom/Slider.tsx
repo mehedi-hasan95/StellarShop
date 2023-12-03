@@ -33,15 +33,18 @@ interface SliderProps {
   navigation?: boolean;
 }
 
-const Slider: React.FC<SliderProps> = ({
-  apiEndpoint,
-  slidesPerView,
-  spaceBetween,
-  autoPlay,
-  breakpoints,
-  pagination,
-  navigation,
-}) => {
+const Slider: React.FC<SliderProps> = (
+  props,
+  {
+    apiEndpoint,
+    slidesPerView,
+    spaceBetween,
+    autoPlay,
+    breakpoints,
+    pagination,
+    navigation,
+  }
+) => {
   const { data } = useSWR<{ product: ProductProps[] }>(apiEndpoint);
   const swiperAutoplayConfig = autoPlay
     ? {

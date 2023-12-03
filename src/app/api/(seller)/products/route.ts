@@ -22,6 +22,7 @@ export async function POST(req: Request) {
       districtId,
       slug,
     } = body;
+
     const products = await prismadb.products.create({
       data: {
         title,
