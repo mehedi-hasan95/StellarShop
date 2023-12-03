@@ -1,18 +1,27 @@
+import { getPopulerData } from "@/lib/apiData/apiData";
 import Slider from "../Slider";
 
-const PopulerPosts = () => {
+const PopulerPosts = async () => {
+  const data = await getPopulerData();
   return (
     <Slider
-      apiEndpoint="/api/populer"
-      slidesPerView={1}
-      spaceBetween={30}
+      data={data}
       autoPlay={{ delay: 2500, disableOnInteraction: false }}
+      slidesPerView={1}
       breakpoints={{
-        640: { slidesPerView: 1, spaceBetween: 20 },
-        768: { slidesPerView: 2, spaceBetween: 25 },
-        1024: { slidesPerView: 3, spaceBetween: 30 },
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 30,
+        },
       }}
-      navigation={true}
     />
   );
 };

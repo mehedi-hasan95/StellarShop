@@ -3,13 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface TrendingProps {
-  id: number;
+  id: string;
   images: { url: string }[];
   title: string;
   user: {
     image: string;
     name: string;
   };
+  slug: string;
 }
 const Trending = async () => {
   const data = await getTrendingData();
