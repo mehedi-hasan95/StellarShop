@@ -98,7 +98,7 @@ model Products {
   id         String   @id @default(cuid())
   title      String
   slug       String   @unique
-  desc       String
+  desc       String   @db.LongText
   short_desc String
   isNew      Boolean  @default(false)
   views      Int      @default(0)

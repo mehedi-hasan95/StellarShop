@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Home, Map, PlusCircle, Users } from "lucide-react";
+import Footer from "@/components/custom/Footer";
 
 export default async function AdminLayout({
   children,
@@ -60,6 +61,7 @@ export default async function AdminLayout({
         <Separator orientation="vertical" />
         <div className="w-3/4 p-4">{children}</div>
       </div>
+      <Footer />
     </div>
   );
 }

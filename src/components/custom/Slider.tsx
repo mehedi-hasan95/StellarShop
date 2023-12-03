@@ -10,7 +10,7 @@ import Currency from "./Currency";
 import AddToCart from "./AddToCart";
 import { Product } from "@/type/types";
 import { useEffect, useState } from "react";
-
+import "swiper/css/pagination";
 interface SliderProps {
   data: {
     product: Product[];

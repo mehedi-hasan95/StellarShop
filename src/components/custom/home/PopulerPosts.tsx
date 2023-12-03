@@ -8,6 +8,8 @@ const PopulerPosts = async () => {
       data={data}
       autoPlay={{ delay: 2500, disableOnInteraction: false }}
       slidesPerView={1}
+      spaceBetween={30}
+      pagination={{ clickable: true, dynamicBullets: true }}
       breakpoints={{
         640: {
           slidesPerView: 1,

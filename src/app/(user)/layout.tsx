@@ -1,3 +1,4 @@
+import Footer from "@/components/custom/Footer";
 import MainMenu from "@/components/custom/MainMenu";
 
 export default function RootLayout({
@@ -9,6 +10,7 @@ export default function RootLayout({
     <div>
       <MainMenu />
       {children}
+      <Footer />
     </div>
   );
 }

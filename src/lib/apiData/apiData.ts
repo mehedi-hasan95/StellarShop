@@ -1,5 +1,5 @@
 export async function getUserData() {
-  const res = await fetch(process.env.BASE_URL + "user", {
+  const res = await fetch(process.env.BASE_URL + "/user", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -14,7 +14,7 @@ export async function getUserData() {
 }
 
 export async function getSellerData() {
-  const res = await fetch(process.env.BASE_URL + "seller");
+  const res = await fetch(process.env.BASE_URL + "/seller");
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -24,7 +24,7 @@ export async function getSellerData() {
 }
 
 export async function getProductsData() {
-  const res = await fetch(process.env.BASE_URL + "products");
+  const res = await fetch(process.env.BASE_URL + "/products");
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -35,7 +35,7 @@ export async function getProductsData() {
 
 // Single products
 export async function getSingleData(productId: string) {
-  const res = await fetch(process.env.BASE_URL + `products/${productId}`, {
+  const res = await fetch(process.env.BASE_URL + `/products/${productId}`, {
     cache: "no-store",
   });
 
@@ -49,7 +49,7 @@ export async function getSingleData(productId: string) {
 // Category
 // Single products
 export async function getCategoryData() {
-  const res = await fetch(process.env.BASE_URL + `category`);
+  const res = await fetch(process.env.BASE_URL + `/category`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -60,7 +60,7 @@ export async function getCategoryData() {
 
 // Single Category
 export async function getSingleCatData(id: string) {
-  const res = await fetch(process.env.BASE_URL + `category/${id}`);
+  const res = await fetch(process.env.BASE_URL + `/category/${id}`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -71,7 +71,7 @@ export async function getSingleCatData(id: string) {
 
 //All products
 export async function getAllProductsData() {
-  const res = await fetch(process.env.BASE_URL + `allproducts`);
+  const res = await fetch(process.env.BASE_URL + `/allproducts`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -83,7 +83,7 @@ export async function getAllProductsData() {
 // Latest product
 
 export async function getLatestProductData() {
-  const res = await fetch(process.env.BASE_URL + `latest`);
+  const res = await fetch(process.env.BASE_URL + `/latest`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -95,7 +95,7 @@ export async function getLatestProductData() {
 // Trending
 
 export async function getTrendingData() {
-  const res = await fetch(process.env.BASE_URL + `trending`);
+  const res = await fetch(process.env.BASE_URL + `/trending`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -107,7 +107,7 @@ export async function getTrendingData() {
 // Populer
 
 export async function getPopulerData() {
-  const res = await fetch(process.env.BASE_URL + `populer`);
+  const res = await fetch(process.env.BASE_URL + `/populer`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
