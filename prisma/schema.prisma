@@ -66,11 +66,12 @@ model VerificationToken {
 }
 
 model Category {
-  id       String     @id @default(cuid())
-  name     String
-  slug     String     @unique
-  image    String?
-  products Products[]
+  id        String      @id @default(cuid())
+  name      String
+  slug      String      @unique
+  image     String?
+  products  Products[]
+  billboard Billboard[]
 }
 
 model Division {
@@ -133,4 +134,14 @@ model Image {
   updatedAt DateTime @updatedAt
 
   @@index([productId])
+}
+
+model Billboard {
+  id       String   @id @default(uuid())
+  label    String
+  image    String
+  catId    String
+  category Category @relation(fields: [catId], references: [id], onDelete: Cascade)
+
+  @@index([catId])
 }

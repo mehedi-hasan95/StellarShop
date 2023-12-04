@@ -5,7 +5,7 @@ import { getAuthSession } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Home, Map, PlusCircle, Users } from "lucide-react";
+import { Home, ImageDown, Map, PlusCircle, Users } from "lucide-react";
 import Footer from "@/components/custom/Footer";
 
 export default async function AdminLayout({
@@ -34,17 +34,22 @@ export default async function AdminLayout({
           </Button>
           <Button asChild variant={"outline"}>
             <Link href="/admin/category">
-              <PlusCircle className="mr-2 h-4 w-4" /> Create Category
+              <PlusCircle className="mr-2 h-4 w-4" /> Category
             </Link>
           </Button>
           <Button asChild variant={"outline"}>
             <Link href="/admin/division">
-              <Map className="mr-2 h-4 w-4" /> Create Division
+              <Map className="mr-2 h-4 w-4" /> Division
             </Link>
           </Button>
           <Button asChild variant={"outline"}>
             <Link href="/admin/district">
-              <Map className="mr-2 h-4 w-4" /> Create District
+              <Map className="mr-2 h-4 w-4" /> District
+            </Link>
+          </Button>
+          <Button asChild variant={"outline"}>
+            <Link href="/admin/billboard">
+              <ImageDown className="mr-2 h-4 w-4" /> Billboard
             </Link>
           </Button>
           <Button asChild variant={"outline"}>

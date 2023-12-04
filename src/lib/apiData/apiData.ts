@@ -115,3 +115,15 @@ export async function getPopulerData() {
 
   return res.json();
 }
+
+// Billboard
+
+export async function getBillboardData() {
+  const res = await fetch(process.env.BASE_URL + `/billboard`);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
