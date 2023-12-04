@@ -11,7 +11,7 @@ export async function GET(req: Request) {
     }
     const user = await prismadb.user.findMany({
       where: {
-        role: "seller",
+        role: "buyer",
       },
     });
     return NextResponse.json({ msg: "success", user });

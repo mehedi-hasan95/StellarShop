@@ -98,7 +98,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
         const result = await response.json();
         if (result.msg === "success") {
           toast.success(toastMessage);
-          // router.push("/admin/billboard");
+          router.push("/admin/billboard");
         }
         console.log("PATCH Success:", result);
       } else {

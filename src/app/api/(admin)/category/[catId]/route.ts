@@ -16,6 +16,7 @@ export async function GET(
             images: true,
           },
         },
+        billboard: true,
       },
     });
     return NextResponse.json({ msg: "success", category });

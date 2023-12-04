@@ -20,7 +20,15 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
   try {
-    const billboard = await prismadb.billboard.findMany();
+    const billboard = await prismadb.billboard.findMany({
+      include: {
+        category: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
     return NextResponse.json({ msg: "success", billboard });
   } catch (error) {
     return NextResponse.json({ msg: "faill", error });
