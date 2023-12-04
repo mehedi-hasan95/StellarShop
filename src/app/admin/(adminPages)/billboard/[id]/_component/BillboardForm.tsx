@@ -22,7 +22,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState } from "react";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
+import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { Billboard } from "@prisma/client";
 import { Trash2 } from "lucide-react";
@@ -30,6 +40,7 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import toast from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
+import useCart from "@/hook/useCart";
 
 const formSchema = z.object({
   label: z.string().min(2, {
@@ -48,6 +59,11 @@ interface BillboardFormProps {
 }
 
 const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   const router = useRouter();
   const params = useParams();
   const [loading, setLoading] = useState(false);
@@ -107,13 +123,54 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
       setLoading(false);
     }
   }
+  const onDelete = async () => {
+    try {
+      const response = await fetch(`/api/billboard/${params.id}`, {
+        method: "DELETE",
+      });
+
+      const result = await response.json();
+      if (result.msg === "success") {
+        router.push("/admin/billboard");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const cart = useCart();
+  if (!isMounted) {
+    return null;
+  }
   return (
     <div>
       <div className="flex justify-between items-center">
         <h2 className="text-lg md:text-xl lg:text-2xl font-bold">{title}</h2>
-        <Button variant={"destructive"}>
-          <Trash2 size={24} />
-        </Button>
+
+        {initialData && (
+          <Dialog>
+            <DialogTrigger>
+              <Button variant={"destructive"}>
+                <Trash2 size={24} />
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>
+                  Are you want to delete this Billboard?
+                </DialogTitle>
+              </DialogHeader>
+              <DialogFooter className="sm:justify-start">
+                <DialogClose asChild>
+                  <Button type="button" variant="secondary">
+                    Close
+                  </Button>
+                </DialogClose>
+                <Button onClick={onDelete}>Confirm</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        )}
       </div>
       <div className="py-10">
         <Separator className={cn("bg-emerald-700")} />

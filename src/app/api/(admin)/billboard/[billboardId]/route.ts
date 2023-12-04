@@ -50,3 +50,23 @@ export async function GET(
     return NextResponse.json({ msg: "faill", error });
   }
 }
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { billboardId: string } }
+) {
+  try {
+    const session = await getAuthSession();
+    if (session?.user.role !== "admin") {
+      return new NextResponse("Unauthorize user", { status: 401 });
+    }
+    const billboard = await prismadb.billboard.delete({
+      where: {
+        id: params.billboardId,
+      },
+    });
+    return NextResponse.json({ msg: "success", billboard });
+  } catch (error) {
+    return NextResponse.json({ msg: "faill", error });
+  }
+}
