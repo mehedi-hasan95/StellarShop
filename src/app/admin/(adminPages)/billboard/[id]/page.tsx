@@ -7,9 +7,10 @@ const BillboardId = async ({ params }: { params: { id: string } }) => {
       id: params.id,
     },
   });
+  const categories = await prismadb.category.findMany();
   return (
     <div>
-      <BillboardForm initialData={billboard} />
+      <BillboardForm categories={categories} initialData={billboard} />
     </div>
   );
 };

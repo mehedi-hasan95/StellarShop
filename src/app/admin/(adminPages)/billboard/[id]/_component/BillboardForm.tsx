@@ -33,8 +33,7 @@ import {
 } from "@/components/ui/dialog";
 
 import { useEffect, useState } from "react";
-import useSWR from "swr";
-import { Billboard } from "@prisma/client";
+import { Billboard, Category } from "@prisma/client";
 import { Trash2 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
@@ -56,9 +55,13 @@ const formSchema = z.object({
 
 interface BillboardFormProps {
   initialData: Billboard | null;
+  categories: Category[];
 }
 
-const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
+const BillboardForm: React.FC<BillboardFormProps> = ({
+  initialData,
+  categories,
+}) => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -67,7 +70,6 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
   const router = useRouter();
   const params = useParams();
   const [loading, setLoading] = useState(false);
-  const { data } = useSWR("/api/category");
   const title = initialData ? "Edit billboard" : "Create billboard";
   const toastMessage = initialData
     ? "Billboard updated."
@@ -198,12 +200,19 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
               <FormItem>
                 <FormLabel>Category</FormLabel>
                 <FormControl>
-                  <Select onValueChange={field.onChange}>
+                  <Select
+                    value={field.value}
+                    defaultValue={field.value}
+                    onValueChange={field.onChange}
+                  >
                     <SelectTrigger>
-                      <SelectValue placeholder="Choose Options" />
+                      <SelectValue
+                        defaultValue={field.value}
+                        placeholder="Choose a category"
+                      />
                     </SelectTrigger>
                     <SelectContent>
-                      {data?.category?.map((item: any) => (
+                      {categories?.map((item: any) => (
                         <SelectItem key={item.id} value={item.id}>
                           {item.name}
                         </SelectItem>
