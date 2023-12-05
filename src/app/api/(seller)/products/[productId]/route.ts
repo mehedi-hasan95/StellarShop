@@ -38,17 +38,9 @@ export async function PATCH(
 ) {
   try {
     const session = await getAuthSession();
-    // if (session?.user.role !== "admin") {
-    //   return new NextResponse("Unauthorize user", { status: 401 });
-    // }
+
     const body = await req.json();
-    // const { label, image, catId } = body;
-    // if (!label || !image || !catId) {
-    //   return NextResponse.json(
-    //     { error: "Missing required properties" },
-    //     { status: 400 }
-    //   );
-    // }
+
     const {
       title,
       images,
@@ -67,7 +59,30 @@ export async function PATCH(
     } = body;
 
     // delete previous data
-
+    await prismadb.products.update({
+      where: {
+        slug: params.productId,
+      },
+      data: {
+        title,
+        images: {
+          deleteMany: {},
+        },
+        isNew,
+        desc,
+        short_desc,
+        views,
+        sale,
+        price,
+        quantity,
+        outOfStoke,
+        catId,
+        divisionId,
+        districtId,
+        sellerId: session?.user.id as string,
+        slug,
+      },
+    });
     const product = await prismadb.products.update({
       where: {
         slug: params.productId,

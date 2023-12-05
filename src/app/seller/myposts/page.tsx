@@ -26,7 +26,9 @@ const MyPosts = async () => {
   return (
     <div>
       <div className="flex justify-between items-center">
-        <h2 className="md:text-xl lg:text-2xl font-bold">Your Products</h2>
+        <h2 className="md:text-xl lg:text-2xl font-bold">
+          Your Products ({data?.length})
+        </h2>
         <Button asChild>
           <Link href="/seller/myposts/new">
             <PenSquare className="mr-2 h-4 w-4" />
@@ -40,7 +42,7 @@ const MyPosts = async () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {data?.map((item: any) => (
           <div key={item.id}>
-            <Image src={item.images[0].url} alt="" height={500} width={500} />
+            <Image src={item?.images[0]?.url} alt="" height={500} width={500} />
             <Link
               href={`/seller/myposts/${item.slug}`}
               className="text-2xl font-semibold"

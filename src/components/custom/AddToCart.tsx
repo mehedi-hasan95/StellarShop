@@ -12,7 +12,7 @@ import {
 // import { Product } from "@/type/types";
 import { Button } from "../ui/button";
 import useCart from "@/hook/useCart";
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import { ShoppingBag, Trash } from "lucide-react";
 import { Product } from "@/type/types";
 import Image from "next/image";
@@ -24,6 +24,12 @@ interface AddToCartProps {
 }
 
 const AddToCart: React.FC<AddToCartProps> = ({ data }) => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const cart = useCart();
   const onAllRemove = () => {
     cart.removeAll();
@@ -38,6 +44,10 @@ const AddToCart: React.FC<AddToCartProps> = ({ data }) => {
       title: data.title,
     });
   };
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <div>

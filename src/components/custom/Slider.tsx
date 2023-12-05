@@ -70,7 +70,7 @@ const Slider: React.FC<SliderProps> = ({
           <SwiperSlide>
             <div className="border-2 max-w-max border-gray-400 rounded-lg px-5 py-10">
               <Image
-                src={item.images[0].url}
+                src={item?.images[0]?.url}
                 alt=""
                 height={500}
                 width={500}

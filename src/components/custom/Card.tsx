@@ -42,14 +42,14 @@ const Card: React.FC<CardProps> = (props) => {
   }
   return (
     <>
-      {props.data.products.map((item) => (
+      {props?.data?.products?.map((item) => (
         <div
           key={item.id}
           className="flex flex-col group max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-900 dark:text-gray-100"
         >
           <div className="relative">
             <Image
-              src={item.images[0].url}
+              src={item?.images[0]?.url}
               alt=""
               height={500}
               width={500}

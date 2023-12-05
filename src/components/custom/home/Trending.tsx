@@ -22,7 +22,7 @@ const Trending = async () => {
           className="relative group overflow-hidden first:lg:row-span-2 first:lg:col-span-2"
         >
           <Image
-            src={item.images[0].url}
+            src={item?.images[0]?.url}
             alt=""
             height={500}
             width={500}
