@@ -1,31 +1,28 @@
-import { getSingleData } from "@/lib/apiData/apiData";
-import NotFound from "../../not-found";
-import ImageGallery from "@/components/custom/ImageGallery";
+import prismadb from "@/lib/prismadb";
+import ProductForm from "./_conponents/ProductForm";
 
-interface PostIdParams {
-  params: {
-    postId: string;
-  };
-}
-const PostId: React.FC<PostIdParams> = async ({ params }) => {
-  const { postId } = params;
-  const data = await getSingleData(postId);
-  console.log(data);
-  if (data.msg === "success") {
-    return (
-      <div>
-        <ImageGallery data={data.product} />
-        <div className="pt-10">
-          <h2 className="text-2xl font-semibold pb-5">
-            {data?.product?.title}
-          </h2>
-          <p>{data?.product?.desc}</p>
-        </div>
-      </div>
-    );
-  } else {
-    return <NotFound />;
-  }
+const PostId = async ({ params }: { params: { postId: string } }) => {
+  const product = await prismadb.products.findUnique({
+    where: {
+      slug: params.postId,
+    },
+    include: {
+      images: true,
+    },
+  });
+  const categorie = await prismadb.category.findMany();
+  const division = await prismadb.division.findMany();
+  const district = await prismadb.district.findMany();
+  return (
+    <div>
+      <ProductForm
+        categorie={categorie}
+        division={division}
+        district={district}
+        initialData={product}
+      />
+    </div>
+  );
 };
 
 export default PostId;

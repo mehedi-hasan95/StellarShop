@@ -3,7 +3,7 @@ import prismadb from "@/lib/prismadb";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PATCH(
-  req: NextRequest,
+  req: Request,
   { params }: { params: { billboardId: string } }
 ) {
   try {
@@ -12,7 +12,7 @@ export async function PATCH(
       return new NextResponse("Unauthorize user", { status: 401 });
     }
     const body = await req.json();
-    const { label, image, catId } = body as any;
+    const { label, image, catId } = body;
     if (!label || !image || !catId) {
       return NextResponse.json(
         { error: "Missing required properties" },

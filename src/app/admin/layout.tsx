@@ -23,7 +23,7 @@ export default async function AdminLayout({
         <MyProfile />
       </div>
       <Separator />
-      <div className="container mx-auto p-4 flex h-screen">
+      <div className="container mx-auto p-4 flex">
         <div className="w-1/4 bg-gray-40 p-4 flex flex-col gap-5">
           <AdminMenu />
         </div>

@@ -2,6 +2,10 @@ import prismadb from "@/lib/prismadb";
 import Image from "next/image";
 import Link from "next/link";
 import { getAuthSession } from "@/app/api/auth/[...nextauth]/route";
+import { Button } from "@/components/ui/button";
+import { PenSquare } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 
 async function getData() {
   const session = await getAuthSession();
@@ -20,19 +24,33 @@ async function getData() {
 const MyPosts = async () => {
   const data = await getData();
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-      {data?.map((item: any) => (
-        <div key={item.id}>
-          <Image src={item.images[0].url} alt="" height={500} width={500} />
-          <Link
-            href={`/seller/myposts/${item.slug}`}
-            className="text-2xl font-semibold"
-          >
-            {item.title}
+    <div>
+      <div className="flex justify-between items-center">
+        <h2 className="md:text-xl lg:text-2xl font-bold">Your Products</h2>
+        <Button asChild>
+          <Link href="/seller/myposts/new">
+            <PenSquare className="mr-2 h-4 w-4" />
+            Create
           </Link>
-          <p>{item.short_desc}</p>
-        </div>
-      ))}
+        </Button>
+      </div>
+      <div className="py-10">
+        <Separator className={cn("bg-emerald-600")} />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {data?.map((item: any) => (
+          <div key={item.id}>
+            <Image src={item.images[0].url} alt="" height={500} width={500} />
+            <Link
+              href={`/seller/myposts/${item.slug}`}
+              className="text-2xl font-semibold"
+            >
+              {item.title}
+            </Link>
+            <p>{item.short_desc}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

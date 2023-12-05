@@ -39,7 +39,6 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import toast from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
-import useCart from "@/hook/useCart";
 
 const formSchema = z.object({
   label: z.string().min(2, {
@@ -140,7 +139,6 @@ const BillboardForm: React.FC<BillboardFormProps> = ({
     }
   };
 
-  const cart = useCart();
   if (!isMounted) {
     return null;
   }
