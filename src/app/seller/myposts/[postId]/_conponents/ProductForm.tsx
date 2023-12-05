@@ -14,6 +14,17 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
@@ -191,6 +202,23 @@ const ProductForm: React.FC<PostFormProps> = ({
     }
   }
 
+  const onDelete = async () => {
+    try {
+      const response = await fetch(`/api/products/${params.postId}`, {
+        method: "DELETE",
+      });
+
+      const result = await response.json();
+      console.log(result);
+      if (result.msg === "success") {
+        toast.success("Product delete successfully");
+        router.push("/seller/myposts");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   // end Hydration error
   if (!isMounted) {
     return null;
@@ -202,9 +230,26 @@ const ProductForm: React.FC<PostFormProps> = ({
       <div className="flex justify-between">
         <h2 className="text-2xl font-bold pb-8">{title}</h2>
         {initialData && (
-          <Button variant={"destructive"}>
-            <Trash2 size={24} />
-          </Button>
+          <Dialog>
+            <DialogTrigger>
+              <Button variant={"destructive"}>
+                <Trash2 size={24} />
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Are you want to delete the Product?</DialogTitle>
+              </DialogHeader>
+              <DialogFooter className="sm:justify-start">
+                <DialogClose asChild>
+                  <Button type="button" variant="secondary">
+                    Close
+                  </Button>
+                </DialogClose>
+                <Button onClick={onDelete}>Confirm</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         )}
       </div>
       <div className="py-10">

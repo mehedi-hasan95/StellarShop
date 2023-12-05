@@ -114,3 +114,23 @@ export async function PATCH(
     return NextResponse.json({ msg: "faill", error });
   }
 }
+
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { productId: string } }
+) {
+  try {
+    const session = await getAuthSession();
+    if (session?.user.role !== "seller") {
+      return new NextResponse("Unauthorize user", { status: 401 });
+    }
+    const product = await prismadb.products.delete({
+      where: {
+        slug: params.productId,
+      },
+    });
+    return NextResponse.json({ msg: "success", product });
+  } catch (error) {
+    return NextResponse.json({ msg: "faill", error });
+  }
+}
