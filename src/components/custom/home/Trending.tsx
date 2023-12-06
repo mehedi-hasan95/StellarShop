@@ -32,7 +32,7 @@ const Trending = async () => {
           <div className="absolute z-30 bottom-10 left-10">
             <Link
               href={`/products/${item.slug}`}
-              className={`text-xl md:text-2xl font-semibold text-white pb-2 md:pb-5 capitalize`}
+              className={`md:text-lg font-semibold text-white pb-2 md:pb-5 capitalize line-clamp-2`}
             >
               {item.title}
             </Link>

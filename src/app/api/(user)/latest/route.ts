@@ -3,12 +3,12 @@ import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
   try {
-    const threeDaysAgo = new Date();
-    threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
+    const omittedDay = new Date();
+    omittedDay.setDate(omittedDay.getDate() - 365);
     const product = await prismadb.products.findMany({
       where: {
         createdAt: {
-          gte: threeDaysAgo,
+          gte: omittedDay,
         },
       },
       include: {

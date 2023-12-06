@@ -20,7 +20,7 @@ const Category = () => {
       <Separator className="mt-7" />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 pt-10">
         {data?.category?.map((item: any) => (
-          <Link href={`/category/${item.id}`} key={item.id}>
+          <Link href={`/category/${item.slug}`} key={item.id}>
             <div>
               <Image
                 src={item.image}

@@ -168,6 +168,10 @@ const ProductForm: React.FC<PostFormProps> = ({
           toast.success(toastMessage);
           router.push("/seller/myposts");
         }
+        if (result.msg === "Unauthorize User") {
+          toast.error("You are Unauthorize User");
+          router.push("/seller");
+        }
       } else {
         const response = await fetch("/api/products", {
           method: "POST", // or 'PUT'
@@ -213,6 +217,10 @@ const ProductForm: React.FC<PostFormProps> = ({
       if (result.msg === "success") {
         toast.success("Product delete successfully");
         router.push("/seller/myposts");
+      }
+      if (result.msg === "Unauthorize User") {
+        toast.error("You are Unauthorize User");
+        router.push("/seller");
       }
     } catch (error) {
       console.error("Error:", error);

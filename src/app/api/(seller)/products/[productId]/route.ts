@@ -39,6 +39,21 @@ export async function PATCH(
   try {
     const session = await getAuthSession();
 
+    if (session?.user.role !== "seller") {
+      return NextResponse.json({ msg: "Unauthorize User" }, { status: 401 });
+    }
+    const unAuthorizeUser = await prismadb.products.findUnique({
+      where: {
+        slug: params.productId,
+      },
+    });
+    if (!unAuthorizeUser) {
+      return NextResponse.json({ msg: "Product not found" }, { status: 404 });
+    }
+    if (unAuthorizeUser.sellerId !== session.user.id) {
+      return NextResponse.json({ msg: "Unauthorize User" }, { status: 401 });
+    }
+
     const body = await req.json();
 
     const {
@@ -64,23 +79,9 @@ export async function PATCH(
         slug: params.productId,
       },
       data: {
-        title,
         images: {
           deleteMany: {},
         },
-        isNew,
-        desc,
-        short_desc,
-        views,
-        sale,
-        price,
-        quantity,
-        outOfStoke,
-        catId,
-        divisionId,
-        districtId,
-        sellerId: session?.user.id as string,
-        slug,
       },
     });
     const product = await prismadb.products.update({
@@ -121,8 +122,20 @@ export async function DELETE(
 ) {
   try {
     const session = await getAuthSession();
+
     if (session?.user.role !== "seller") {
-      return new NextResponse("Unauthorize user", { status: 401 });
+      return NextResponse.json({ msg: "Unauthorize User" }, { status: 401 });
+    }
+    const unAuthorizeUser = await prismadb.products.findUnique({
+      where: {
+        slug: params.productId,
+      },
+    });
+    if (!unAuthorizeUser) {
+      return NextResponse.json({ msg: "Product not found" }, { status: 404 });
+    }
+    if (unAuthorizeUser.sellerId !== session.user.id) {
+      return NextResponse.json({ msg: "Unauthorize User" }, { status: 401 });
     }
     const product = await prismadb.products.delete({
       where: {

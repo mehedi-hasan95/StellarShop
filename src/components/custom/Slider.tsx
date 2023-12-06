@@ -77,7 +77,7 @@ const Slider: React.FC<SliderProps> = ({
                 className="max-h-64"
               />
               <Link
-                className="text-xl font-bold"
+                className="md:text-lg font-bold line-clamp-3"
                 href={`/products/${item.slug}`}
               >
                 {item.title}

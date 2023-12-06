@@ -17,7 +17,7 @@ const Division = () => {
       <Separator className="mt-7" />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 pt-10">
         {data?.division?.map((item: any) => (
-          <Link key={item.id} href={`/item/${item.id}`}>
+          <Link key={item.id} href={`/item/${item.slug}`}>
             <p className="capitalize">{item.name}</p>
           </Link>
         ))}

@@ -21,7 +21,7 @@ const District = () => {
       <Separator className="mt-10" />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 pt-10">
         {data?.district?.map((item: any) => (
-          <Link key={item.id} href={`/district/${item.id}`}>
+          <Link key={item.id} href={`/district/${item.slug}`}>
             <div>
               <Image
                 src={item.image}
