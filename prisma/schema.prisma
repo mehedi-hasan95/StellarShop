@@ -79,7 +79,7 @@ model Division {
   name     String     @unique
   slug     String     @unique
   image    String?
-  District District[]
+  district District[]
   products Products[]
 }
 

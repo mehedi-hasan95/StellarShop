@@ -127,3 +127,27 @@ export async function getBillboardData() {
 
   return res.json();
 }
+
+// Division
+
+export async function getDivisoinData() {
+  const res = await fetch(process.env.BASE_URL + `/division`);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
+
+// District
+
+export async function getDistrictData() {
+  const res = await fetch(process.env.BASE_URL + `/district`);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}

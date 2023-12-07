@@ -1,16 +1,13 @@
-"use client";
-
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 
-import useSWR from "swr";
+import { getDistrictData } from "@/lib/apiData/apiData";
 
-const District = () => {
-  // District
-  const { data } = useSWR("/api/district");
+const District = async () => {
+  const data = await getDistrictData();
   return (
     <div>
       <Button asChild>

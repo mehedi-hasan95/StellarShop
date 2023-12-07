@@ -1,12 +1,11 @@
-"use client";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { PlusCircle } from "lucide-react";
-import useSWR from "swr";
+import { getDivisoinData } from "@/lib/apiData/apiData";
 
-const Division = () => {
-  const { data } = useSWR("/api/division");
+const Division = async () => {
+  const data = await getDivisoinData();
   return (
     <div>
       <Button asChild>
