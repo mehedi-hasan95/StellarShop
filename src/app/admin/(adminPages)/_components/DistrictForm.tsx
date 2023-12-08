@@ -14,12 +14,19 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import ImageUpload from "@/components/custom/ImageUpload";
-import { useState } from "react";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { Division } from "@prisma/client";
-import { Trash } from "lucide-react";
-import toast from "react-hot-toast";
+import ImageUpload from "@/components/custom/ImageUpload";
+import useSWR from "swr";
+import { District, Division } from "@prisma/client";
 import {
   Dialog,
   DialogClose,
@@ -29,9 +36,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Trash2 } from "lucide-react";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   name: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+  divisionId: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
   image: z.string().min(2, {
@@ -39,24 +51,32 @@ const formSchema = z.object({
   }),
 });
 
-interface DivisionFormProps {
-  initialData: Division | null;
+// from props
+interface DistrictFormProps {
+  initialData: District | null;
+  division: Division[];
 }
-const DivisionForm: React.FC<DivisionFormProps> = ({ initialData }) => {
-  const [loading, setLoading] = useState(false);
+const DistrictForm: React.FC<DistrictFormProps> = ({
+  initialData,
+  division,
+}) => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   const router = useRouter();
   const params = useParams();
-
-  const title = initialData ? "Edit Division" : "Create Division";
-  const toastMessage = initialData
-    ? "Edit Division successfully"
-    : "Create Division successfully";
-  const action = initialData ? "Save Changes" : "Create";
+  const [loading, setLoading] = useState(false);
+  const title = initialData ? "Edit District" : "Create District";
+  const toastMessage = initialData ? "District updated." : "District created.";
+  const action = initialData ? "Save changes" : "Create";
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: initialData?.name || "",
+      divisionId: initialData?.divisionId || "",
       image: initialData?.image || "",
     },
   });
@@ -75,7 +95,7 @@ const DivisionForm: React.FC<DivisionFormProps> = ({ initialData }) => {
     try {
       setLoading(true);
       if (initialData) {
-        const response = await fetch(`/api/division/${params.divisionId}`, {
+        const response = await fetch(`/api/district/${params.districtId}`, {
           method: "PATCH", // or 'PUT'
           headers: {
             "Content-Type": "application/json",
@@ -83,6 +103,7 @@ const DivisionForm: React.FC<DivisionFormProps> = ({ initialData }) => {
           body: JSON.stringify({
             name: values.name,
             image: values.image,
+            divisionId: values.divisionId,
             slug,
           }),
         });
@@ -90,10 +111,10 @@ const DivisionForm: React.FC<DivisionFormProps> = ({ initialData }) => {
         const result = await response.json();
         if (result.msg === "success") {
           toast.success(toastMessage);
-          router.push("/admin/division");
+          router.push("/admin/district");
         }
       } else {
-        const response = await fetch("/api/division", {
+        const response = await fetch("/api/district", {
           method: "POST", // or 'PUT'
           headers: {
             "Content-Type": "application/json",
@@ -101,6 +122,7 @@ const DivisionForm: React.FC<DivisionFormProps> = ({ initialData }) => {
           body: JSON.stringify({
             name: values.name,
             image: values.image,
+            divisionId: values.divisionId,
             slug,
           }),
         });
@@ -108,7 +130,7 @@ const DivisionForm: React.FC<DivisionFormProps> = ({ initialData }) => {
         const result = await response.json();
         if (result.msg === "success") {
           toast.success(toastMessage);
-          router.push("/admin/division");
+          router.push("/admin/district");
         }
       }
     } catch (error) {
@@ -120,34 +142,41 @@ const DivisionForm: React.FC<DivisionFormProps> = ({ initialData }) => {
 
   const onDelete = async () => {
     try {
-      const response = await fetch(`/api/division/${params.divisionId}`, {
-        method: "Delete", // or 'PUT'
+      const response = await fetch(`/api/district/${params.districtId}`, {
+        method: "DELETE",
       });
 
       const result = await response.json();
       if (result.msg === "success") {
-        toast.success(toastMessage);
-        router.push("/admin/division");
+        toast.success("District delete successfully");
+        router.push("/admin/district");
       }
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <div>
       <div className="flex justify-between">
-        <h2 className="md:text-xl lg:text-2xl font-bold">{title}</h2>
+        <h2 className="text-lg md:text-xl lg:text-2xl font-bold">{title}</h2>
+
         {initialData && (
           <Dialog>
             <DialogTrigger>
               <Button variant={"destructive"}>
-                <Trash size={24} />
+                <Trash2 size={24} />
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Are you want to delete the Division?</DialogTitle>
+                <DialogTitle>
+                  Are you want to delete this Billboard?
+                </DialogTitle>
               </DialogHeader>
               <DialogFooter className="sm:justify-start">
                 <DialogClose asChild>
@@ -168,9 +197,44 @@ const DivisionForm: React.FC<DivisionFormProps> = ({ initialData }) => {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Division Name</FormLabel>
+                <FormLabel>District</FormLabel>
                 <FormControl>
-                  <Input placeholder="khulna" {...field} />
+                  <Input placeholder="Jashore" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="divisionId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Division</FormLabel>
+                <FormControl>
+                  <Select
+                    value={field.value}
+                    defaultValue={field.value}
+                    onValueChange={field.onChange}
+                  >
+                    <SelectTrigger>
+                      <SelectValue
+                        defaultValue={field.value}
+                        placeholder="Choose Division"
+                      />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {division?.map((item: any) => (
+                        <SelectItem
+                          key={item.id}
+                          value={item.id}
+                          className="capitalize"
+                        >
+                          {item.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -194,6 +258,7 @@ const DivisionForm: React.FC<DivisionFormProps> = ({ initialData }) => {
               </FormItem>
             )}
           />
+
           <Button type="submit">{action}</Button>
         </form>
       </Form>
@@ -201,4 +266,4 @@ const DivisionForm: React.FC<DivisionFormProps> = ({ initialData }) => {
   );
 };
 
-export default DivisionForm;
+export default DistrictForm;

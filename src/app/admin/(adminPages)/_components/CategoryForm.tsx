@@ -1,10 +1,12 @@
 "use client";
 
+import { useParams, useRouter } from "next/navigation";
+import ImageUpload from "@/components/custom/ImageUpload";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -14,44 +16,41 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import ImageUpload from "@/components/custom/ImageUpload";
-import { useState } from "react";
-import { useParams, useRouter } from "next/navigation";
-import { Division } from "@prisma/client";
-import { Trash } from "lucide-react";
+import { Category } from "@prisma/client";
 import toast from "react-hot-toast";
+import { Trash, Trash2 } from "lucide-react";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 const formSchema = z.object({
   name: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+    message: "Category must be at least 2 characters.",
   }),
   image: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+    message: "Image must be at least 2 characters.",
   }),
 });
 
-interface DivisionFormProps {
-  initialData: Division | null;
+interface CategorFormProps {
+  initialData: Category | null;
 }
-const DivisionForm: React.FC<DivisionFormProps> = ({ initialData }) => {
-  const [loading, setLoading] = useState(false);
+const CategorForm: React.FC<CategorFormProps> = ({ initialData }) => {
   const router = useRouter();
   const params = useParams();
-
-  const title = initialData ? "Edit Division" : "Create Division";
+  const title = initialData ? "Update Category" : "Create Category";
   const toastMessage = initialData
-    ? "Edit Division successfully"
-    : "Create Division successfully";
+    ? "Update Category Successfully"
+    : "Create Category Successfully";
   const action = initialData ? "Save Changes" : "Create";
+  const [loading, setLoading] = useState(false);
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -75,7 +74,7 @@ const DivisionForm: React.FC<DivisionFormProps> = ({ initialData }) => {
     try {
       setLoading(true);
       if (initialData) {
-        const response = await fetch(`/api/division/${params.divisionId}`, {
+        const response = await fetch(`/api/category/${params.categoryId}`, {
           method: "PATCH", // or 'PUT'
           headers: {
             "Content-Type": "application/json",
@@ -90,10 +89,10 @@ const DivisionForm: React.FC<DivisionFormProps> = ({ initialData }) => {
         const result = await response.json();
         if (result.msg === "success") {
           toast.success(toastMessage);
-          router.push("/admin/division");
+          router.push("/admin/category");
         }
       } else {
-        const response = await fetch("/api/division", {
+        const response = await fetch("/api/category", {
           method: "POST", // or 'PUT'
           headers: {
             "Content-Type": "application/json",
@@ -108,7 +107,7 @@ const DivisionForm: React.FC<DivisionFormProps> = ({ initialData }) => {
         const result = await response.json();
         if (result.msg === "success") {
           toast.success(toastMessage);
-          router.push("/admin/division");
+          router.push("/admin/category");
         }
       }
     } catch (error) {
@@ -120,20 +119,19 @@ const DivisionForm: React.FC<DivisionFormProps> = ({ initialData }) => {
 
   const onDelete = async () => {
     try {
-      const response = await fetch(`/api/division/${params.divisionId}`, {
-        method: "Delete", // or 'PUT'
+      const response = await fetch(`/api/category/${params.categoryId}`, {
+        method: "DELETE",
       });
 
       const result = await response.json();
       if (result.msg === "success") {
-        toast.success(toastMessage);
-        router.push("/admin/division");
+        toast.success("Category delete successfully");
+        router.push("/admin/category");
       }
     } catch (error) {
       console.error("Error:", error);
     }
   };
-
   return (
     <div>
       <div className="flex justify-between">
@@ -168,9 +166,9 @@ const DivisionForm: React.FC<DivisionFormProps> = ({ initialData }) => {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Division Name</FormLabel>
+                <FormLabel>Category Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="khulna" {...field} />
+                  <Input placeholder="Category" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -201,4 +199,4 @@ const DivisionForm: React.FC<DivisionFormProps> = ({ initialData }) => {
   );
 };
 
-export default DivisionForm;
+export default CategorForm;
