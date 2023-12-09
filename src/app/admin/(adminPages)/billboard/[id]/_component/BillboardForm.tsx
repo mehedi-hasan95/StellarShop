@@ -101,7 +101,6 @@ const BillboardForm: React.FC<BillboardFormProps> = ({
           toast.success(toastMessage);
           router.push("/admin/billboard");
         }
-        console.log("PATCH Success:", result);
       } else {
         const response = await fetch("/api/billboard", {
           method: "POST", // or 'PUT'
@@ -116,7 +115,6 @@ const BillboardForm: React.FC<BillboardFormProps> = ({
           toast.success(toastMessage);
           router.push("/admin/billboard");
         }
-        console.log("Success:", result);
       }
     } catch (error) {
       console.error("Error:", error);

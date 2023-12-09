@@ -213,7 +213,6 @@ const ProductForm: React.FC<PostFormProps> = ({
       });
 
       const result = await response.json();
-      console.log(result);
       if (result.msg === "success") {
         toast.success("Product delete successfully");
         router.push("/seller/myposts");
