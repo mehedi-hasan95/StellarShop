@@ -11,6 +11,7 @@ import { Bookmark, Contact, DollarSign, ShoppingCart } from "lucide-react";
 import ImageGallery from "@/components/custom/ImageGallery";
 import { Button } from "@/components/ui/button";
 import AddToCart from "@/components/custom/AddToCart";
+import { Preview } from "@/components/custom/Preview";
 
 interface productidProps {
   params: {
@@ -28,7 +29,11 @@ const ProductId: React.FC<productidProps> = async ({ params }) => {
             <h2 className="text-2xl font-semibold pb-3">
               {data?.product?.title}
             </h2>
-            <p>{data?.product?.desc}</p>
+            {/* <p>{data?.product?.desc}</p> */}
+            <div dangerouslySetInnerHTML={{ __html: data?.product?.desc }} />
+            {/* <div>
+              <Preview value={data?.product?.desc} />
+            </div> */}
           </div>
         </div>
         <div className="md:w-2/5">

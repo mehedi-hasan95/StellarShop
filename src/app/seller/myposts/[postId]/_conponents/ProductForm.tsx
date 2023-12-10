@@ -43,6 +43,7 @@ import { Trash2 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import toast from "react-hot-toast";
+import { Editor } from "@/components/custom/Editor";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -301,12 +302,7 @@ const ProductForm: React.FC<PostFormProps> = ({
               <FormItem>
                 <FormLabel>Description:</FormLabel>
                 <FormControl>
-                  <Textarea
-                    placeholder="Tell us your story"
-                    className="resize-none"
-                    {...field}
-                    rows={10}
-                  />
+                  <Editor {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
