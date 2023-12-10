@@ -2,7 +2,10 @@ import { getAuthSession } from "@/app/api/auth/[...nextauth]/route";
 import prismadb from "@/lib/prismadb";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET({ params }: { params: { catId: string } }) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { catId: string } }
+) {
   try {
     const category = await prismadb.category.findMany({
       where: {

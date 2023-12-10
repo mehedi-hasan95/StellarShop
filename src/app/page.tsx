@@ -15,7 +15,7 @@ export default function Home() {
       <MainMenu />
       <SearchBar />
       <div className="container mx-auto p-4">
-        <h2 className="text-lg font-bold py-10">Search by Category</h2>
+        <h2 className="text-lg font-bold py-10">Search by Category:</h2>
         <ByCategory />
       </div>
       <Suspense fallback={<SkeletonLoder />}>

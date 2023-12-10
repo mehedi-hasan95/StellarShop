@@ -6,7 +6,7 @@ import Card from "@/components/custom/Card";
 
 const CatId = async ({ params }: { params: { catId: string } }) => {
   const data = await getSingleCatData(params.catId);
-  if (data.category.length) {
+  if (data?.category?.length) {
     return (
       <div className="container mx-auto p-4">
         {data?.category[0]?.billboard.length ? (
