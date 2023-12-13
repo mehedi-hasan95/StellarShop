@@ -15,7 +15,6 @@ interface WishListButtonProps {
 }
 
 const WishListButton: React.FC<WishListButtonProps> = ({ data }) => {
-  const router = useRouter();
   const currentUser = useSession();
   const { data: isFevorite, mutate } = useSWR(`/api/wishlist/${data.id}`);
   const handleWishlist = async () => {

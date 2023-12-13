@@ -16,6 +16,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import ImageGallery from "./ImageGallery";
+import { cn } from "@/lib/utils";
 
 interface CardProps {
   data: {
@@ -30,6 +31,9 @@ interface ProductProps {
   price: string;
   short_desc: string;
   slug: string;
+  _count: {
+    wishlist: number;
+  };
 }
 const Card: React.FC<CardProps> = (props) => {
   const [isMounted, setIsMounted] = useState(false);
@@ -98,8 +102,14 @@ const Card: React.FC<CardProps> = (props) => {
                 <span>10</span>
               </Button>
               <Button variant={"ghost"}>
-                <Heart className="mr-2 h-4 w-4" />
-                <span>30</span>
+                <Heart
+                  className={cn(
+                    `mr-2 h-4 w-4 ${
+                      item._count?.wishlist > 0 && "text-red-500 fill-red-500"
+                    }`
+                  )}
+                />
+                <span>{item._count?.wishlist}</span>
               </Button>
             </div>
             <div className="flex space-x-2 text-sm dark:text-gray-400">

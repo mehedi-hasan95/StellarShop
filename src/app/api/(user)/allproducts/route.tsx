@@ -6,6 +6,11 @@ export async function GET(req: Request) {
     const products = await prismadb.products.findMany({
       include: {
         images: true,
+        _count: {
+          select: {
+            wishlist: true,
+          },
+        },
       },
       orderBy: {
         createdAt: "desc",
