@@ -9,10 +9,13 @@ import {
 
 import { Bookmark, Contact, DollarSign, ShoppingCart } from "lucide-react";
 import ImageGallery from "@/components/custom/ImageGallery";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import AddToCart from "@/components/custom/AddToCart";
-import { Preview } from "@/components/custom/Preview";
+// import { Preview } from "@/components/custom/Preview";
 import WishListButton from "@/components/custom/WishListButton";
+import ReviewForm from "../_component/ReviewForm";
+import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 
 interface productidProps {
   params: {
@@ -21,9 +24,12 @@ interface productidProps {
 }
 const ProductId: React.FC<productidProps> = async ({ params }) => {
   const data = await getSingleData(params.productId);
-  if (data?.msg === "success") {
-    return (
-      <div className="container mx-auto p-4 flex flex-col md:flex-row gap-5">
+  if (data?.msg !== "success") {
+    return <NotFound />;
+  }
+  return (
+    <div className="container mx-auto p-4">
+      <div className="flex flex-col md:flex-row gap-5">
         <div className=" md:w-3/5">
           <ImageGallery data={data.product} />
           <div className="pt-10">
@@ -81,19 +87,19 @@ const ProductId: React.FC<productidProps> = async ({ params }) => {
             </h4>
           </div>
           <div className="flex gap-5 flex-col sm:flex-row md:flex-col lg:flex-row justify-between items-center border-2 border-gray-200 rounded-lg p-5">
-            {/* <Button>
-              <Bookmark className="mr-2 h-4 w-4" />
-              Add to Wish List
-            </Button> */}
             <WishListButton data={data?.product} />
             <AddToCart data={data?.product} />
           </div>
         </div>
       </div>
-    );
-  } else {
-    return <NotFound />;
-  }
+      <div className="py-10">
+        <Separator className={cn("bg-emerald-600")} />
+      </div>
+      <div>
+        <ReviewForm data={data.product.id} />
+      </div>
+    </div>
+  );
 };
 
 export default ProductId;

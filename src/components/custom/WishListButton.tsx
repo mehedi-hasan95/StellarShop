@@ -48,7 +48,6 @@ const WishListButton: React.FC<WishListButtonProps> = ({ data }) => {
         });
         mutate();
         const result = await response.json();
-        console.log(result);
         if (result.msg === "success") {
           toast.success("Added to WishList");
         }
