@@ -92,10 +92,8 @@ const ProductId: React.FC<productidProps> = async ({ params }) => {
           </div>
         </div>
       </div>
+
       <div className="py-10">
-        <Separator className={cn("bg-emerald-600")} />
-      </div>
-      <div>
         <ReviewForm data={data.product.id} />
       </div>
     </div>

@@ -1,6 +1,7 @@
 // ReviewForm.js
 "use client";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { Star } from "lucide-react";
@@ -32,6 +33,7 @@ const ReviewForm: React.FC<dataProps> = ({ data }) => {
   };
   const handleReviews = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!session?.user.id) {
       toast.error("Login to write a review");
     }
@@ -48,9 +50,13 @@ const ReviewForm: React.FC<dataProps> = ({ data }) => {
       });
 
       const result = await response.json();
+      if (result.status === 409) {
+        toast.error("You already commented on this post");
+      }
       if (result.msg === "success") {
         toast.success("Message created successfully");
       }
+      setReview(0), (e.target as HTMLFormElement).reset();
       mutate();
     } catch (error) {
       console.error("Error:", error);
@@ -61,20 +67,18 @@ const ReviewForm: React.FC<dataProps> = ({ data }) => {
     <div className="w-2/3">
       <form onSubmit={handleReviews}>
         <div>
-          <h2 className="md:text-xl font-bold">Select Product Rating</h2>
+          <h2 className="md:text-xl font-bold pb-3">Rate this product</h2>
 
           <div className="flex items-center">
             {[1, 2, 3, 4, 5].map((star) => (
-              <span
-                key={star}
-                className={`cursor-pointer md:text-3xl lg:text-4xl ${
-                  star <= review
-                    ? "text-yellow-500 fill-yellow-500"
-                    : "text-gray-300"
-                }`}
-                onClick={() => handleStarClick(star)}
-              >
-                <Star />
+              <span key={star} onClick={() => handleStarClick(star)}>
+                <Star
+                  className={`cursor-pointer md:text-3xl lg:text-4xl ${
+                    star <= review
+                      ? "text-yellow-500 fill-yellow-500"
+                      : "text-gray-300"
+                  }`}
+                />
               </span>
             ))}
           </div>
@@ -92,10 +96,12 @@ const ReviewForm: React.FC<dataProps> = ({ data }) => {
         )}
       </form>
       <div className="pt-10">
+        <Separator className={cn("mb-5 bg-emerald-600")} />
         <h2 className="md:text-xl font-bold pb-5">
           {reviewData?.reviews?.length}{" "}
           {reviewData?.reviews?.length > 1 ? "Reviews" : "Review"}
         </h2>
+
         <div className="flex flex-col gap-y-5">
           {reviewData?.reviews.map((item: ReviewDataProps) => (
             <div key={item.id}>
@@ -111,10 +117,13 @@ const ReviewForm: React.FC<dataProps> = ({ data }) => {
               </div>
               <div className="flex py-1">
                 {[...Array(item.review)].map((_, index) => (
-                  <Star key={index} className="fill-yellow-400" />
+                  <Star
+                    key={index}
+                    className="fill-yellow-500 text-yellow-500"
+                  />
                 ))}
                 {[...Array(5 - item.review)].map((_, index) => (
-                  <Star key={index} />
+                  <Star key={index} className="text-gray-300" />
                 ))}
               </div>
               <p>{item.comment}</p>

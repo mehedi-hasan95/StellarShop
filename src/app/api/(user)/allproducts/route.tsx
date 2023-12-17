@@ -9,6 +9,7 @@ export async function GET(req: Request) {
         _count: {
           select: {
             wishlist: true,
+            review: true,
           },
         },
       },

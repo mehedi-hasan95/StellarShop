@@ -35,7 +35,7 @@ export async function getProductsData() {
 
 // Single products
 export async function getSingleData(productId: string) {
-  const res = await fetch(process.env.BASE_URL + `/products/${productId}`, {
+  const res = await fetch(process.env.BASE_URL + `/allproducts/${productId}`, {
     cache: "no-store",
   });
 

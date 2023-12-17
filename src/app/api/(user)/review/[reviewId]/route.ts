@@ -13,6 +13,15 @@ export async function POST(
     }
     const body = await req.json();
     const { review, comment, productId } = body;
+    const existingComment = await prismadb.review.findFirst({
+      where: {
+        userId: session.user.id,
+        productId: params.reviewId,
+      },
+    });
+    if (existingComment) {
+      return NextResponse.json({ msg: "Allready exist", status: 409 });
+    }
     const reviews = await prismadb.review.create({
       data: {
         review,

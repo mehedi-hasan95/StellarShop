@@ -33,6 +33,7 @@ interface ProductProps {
   slug: string;
   _count: {
     wishlist: number;
+    review: number;
   };
 }
 const Card: React.FC<CardProps> = (props) => {
@@ -115,7 +116,7 @@ const Card: React.FC<CardProps> = (props) => {
             <div className="flex space-x-2 text-sm dark:text-gray-400">
               <Button variant={"ghost"}>
                 <MessagesSquare className="mr-2 h-4 w-4" />
-                <span>200</span>
+                <span>{item._count?.review}</span>
               </Button>
               <Button variant={"ghost"}>
                 <ThumbsUp className="mr-2 h-4 w-4" />
