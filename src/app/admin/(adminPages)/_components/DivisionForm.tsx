@@ -75,17 +75,20 @@ const DivisionForm: React.FC<DivisionFormProps> = ({ initialData }) => {
     try {
       setLoading(true);
       if (initialData) {
-        const response = await fetch(`/api/division/${params.divisionId}`, {
-          method: "PATCH", // or 'PUT'
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: values.name,
-            image: values.image,
-            slug,
-          }),
-        });
+        const response = await fetch(
+          `/api/admin/division/${params.divisionId}`,
+          {
+            method: "PATCH", // or 'PUT'
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: values.name,
+              image: values.image,
+              slug,
+            }),
+          }
+        );
 
         const result = await response.json();
         if (result.msg === "success") {
@@ -93,7 +96,7 @@ const DivisionForm: React.FC<DivisionFormProps> = ({ initialData }) => {
           router.push("/admin/division");
         }
       } else {
-        const response = await fetch("/api/division", {
+        const response = await fetch("/api/admin/division", {
           method: "POST", // or 'PUT'
           headers: {
             "Content-Type": "application/json",
@@ -120,7 +123,7 @@ const DivisionForm: React.FC<DivisionFormProps> = ({ initialData }) => {
 
   const onDelete = async () => {
     try {
-      const response = await fetch(`/api/division/${params.divisionId}`, {
+      const response = await fetch(`/api/admin/division/${params.divisionId}`, {
         method: "Delete", // or 'PUT'
       });
 

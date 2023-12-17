@@ -88,7 +88,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({
     try {
       setLoading(true);
       if (initialData) {
-        const response = await fetch(`/api/billboard/${params.id}`, {
+        const response = await fetch(`/api/admin/billboard/${params.id}`, {
           method: "PATCH", // or 'PUT'
           headers: {
             "Content-Type": "application/json",
@@ -102,7 +102,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({
           router.push("/admin/billboard");
         }
       } else {
-        const response = await fetch("/api/billboard", {
+        const response = await fetch("/api/admin/billboard", {
           method: "POST", // or 'PUT'
           headers: {
             "Content-Type": "application/json",
@@ -124,7 +124,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({
   }
   const onDelete = async () => {
     try {
-      const response = await fetch(`/api/billboard/${params.id}`, {
+      const response = await fetch(`/api/admin/billboard/${params.id}`, {
         method: "DELETE",
       });
 

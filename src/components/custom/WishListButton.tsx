@@ -16,7 +16,7 @@ interface WishListButtonProps {
 
 const WishListButton: React.FC<WishListButtonProps> = ({ data }) => {
   const currentUser = useSession();
-  const { data: isFevorite, mutate } = useSWR(`/api/wishlist/${data.id}`);
+  const { data: isFevorite, mutate } = useSWR(`/api/user/wishlist/${data.id}`);
   const handleWishlist = async () => {
     if (!currentUser?.data?.user?.id) {
       toast.error("Please login first");
@@ -24,7 +24,7 @@ const WishListButton: React.FC<WishListButtonProps> = ({ data }) => {
     if (isFevorite?.wishList?.productId) {
       try {
         const response = await fetch(
-          `/api/wishlist/${isFevorite.wishList.id}`,
+          `/api/user/wishlist/${isFevorite.wishList.id}`,
           {
             method: "DELETE",
           }
@@ -39,7 +39,7 @@ const WishListButton: React.FC<WishListButtonProps> = ({ data }) => {
       }
     } else {
       try {
-        const response = await fetch(`/api/wishlist/${data.id}`, {
+        const response = await fetch(`/api/user/wishlist/${data.id}`, {
           method: "POST", // or 'PUT'
           headers: {
             "Content-Type": "application/json",

@@ -4,7 +4,7 @@ import Image from "next/image";
 import useSWR from "swr";
 
 const Seller = () => {
-  const { data } = useSWR("/api/seller", {
+  const { data } = useSWR("/api/admin/seller", {
     refreshInterval: 0,
   });
   return (

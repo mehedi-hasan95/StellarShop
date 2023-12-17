@@ -144,7 +144,7 @@ const ProductForm: React.FC<PostFormProps> = ({
     try {
       setLoading(true);
       if (initialData) {
-        const response = await fetch(`/api/products/${params.postId}`, {
+        const response = await fetch(`/api/seller/products/${params.postId}`, {
           method: "PATCH", // or 'PUT'
           headers: {
             "Content-Type": "application/json",
@@ -174,7 +174,7 @@ const ProductForm: React.FC<PostFormProps> = ({
           router.push("/seller");
         }
       } else {
-        const response = await fetch("/api/products", {
+        const response = await fetch("/api/seller/products", {
           method: "POST", // or 'PUT'
           headers: {
             "Content-Type": "application/json",
@@ -209,7 +209,7 @@ const ProductForm: React.FC<PostFormProps> = ({
 
   const onDelete = async () => {
     try {
-      const response = await fetch(`/api/products/${params.postId}`, {
+      const response = await fetch(`/api/seller/products/${params.postId}`, {
         method: "DELETE",
       });
 

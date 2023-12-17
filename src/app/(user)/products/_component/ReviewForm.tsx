@@ -26,7 +26,7 @@ interface ReviewDataProps {
 }
 const ReviewForm: React.FC<dataProps> = ({ data }) => {
   const { data: session } = useSession();
-  const { data: reviewData, mutate } = useSWR(`/api/review/${data}`);
+  const { data: reviewData, mutate } = useSWR(`/api/user/review/${data}`);
   const [review, setReview] = useState(0);
   const handleStarClick = (selectedRating: number) => {
     setReview(selectedRating === review ? 0 : selectedRating);
@@ -40,7 +40,7 @@ const ReviewForm: React.FC<dataProps> = ({ data }) => {
     const comment: HTMLTextAreaElement = (e.target as any).comment.value;
     const rating = { review, comment, productId: data };
     try {
-      const response = await fetch(`/api/review/${data}`, {
+      const response = await fetch(`/api/user/review/${data}`, {
         method: "POST", // or 'PUT'
         headers: {
           "Content-Type": "application/json",

@@ -14,8 +14,6 @@ import AddToCart from "@/components/custom/AddToCart";
 // import { Preview } from "@/components/custom/Preview";
 import WishListButton from "@/components/custom/WishListButton";
 import ReviewForm from "../_component/ReviewForm";
-import { Separator } from "@/components/ui/separator";
-import { cn } from "@/lib/utils";
 
 interface productidProps {
   params: {

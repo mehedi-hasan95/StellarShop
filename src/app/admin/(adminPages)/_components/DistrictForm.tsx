@@ -95,18 +95,21 @@ const DistrictForm: React.FC<DistrictFormProps> = ({
     try {
       setLoading(true);
       if (initialData) {
-        const response = await fetch(`/api/district/${params.districtId}`, {
-          method: "PATCH", // or 'PUT'
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: values.name,
-            image: values.image,
-            divisionId: values.divisionId,
-            slug,
-          }),
-        });
+        const response = await fetch(
+          `/api/admin/district/${params.districtId}`,
+          {
+            method: "PATCH", // or 'PUT'
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: values.name,
+              image: values.image,
+              divisionId: values.divisionId,
+              slug,
+            }),
+          }
+        );
 
         const result = await response.json();
         if (result.msg === "success") {
@@ -114,7 +117,7 @@ const DistrictForm: React.FC<DistrictFormProps> = ({
           router.push("/admin/district");
         }
       } else {
-        const response = await fetch("/api/district", {
+        const response = await fetch("/api/admin/district", {
           method: "POST", // or 'PUT'
           headers: {
             "Content-Type": "application/json",
@@ -142,7 +145,7 @@ const DistrictForm: React.FC<DistrictFormProps> = ({
 
   const onDelete = async () => {
     try {
-      const response = await fetch(`/api/district/${params.districtId}`, {
+      const response = await fetch(`/api/admin/district/${params.districtId}`, {
         method: "DELETE",
       });
 

@@ -4,7 +4,7 @@ import Image from "next/image";
 import useSWR from "swr";
 
 const User = () => {
-  const { data } = useSWR("/api/user");
+  const { data } = useSWR("/api/admin/user");
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {data?.user?.map((item: any, i: number) => (

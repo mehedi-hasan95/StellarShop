@@ -74,17 +74,20 @@ const CategorForm: React.FC<CategorFormProps> = ({ initialData }) => {
     try {
       setLoading(true);
       if (initialData) {
-        const response = await fetch(`/api/category/${params.categoryId}`, {
-          method: "PATCH", // or 'PUT'
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: values.name,
-            image: values.image,
-            slug,
-          }),
-        });
+        const response = await fetch(
+          `/api/admin/category/${params.categoryId}`,
+          {
+            method: "PATCH", // or 'PUT'
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: values.name,
+              image: values.image,
+              slug,
+            }),
+          }
+        );
 
         const result = await response.json();
         if (result.msg === "success") {
@@ -92,7 +95,7 @@ const CategorForm: React.FC<CategorFormProps> = ({ initialData }) => {
           router.push("/admin/category");
         }
       } else {
-        const response = await fetch("/api/category", {
+        const response = await fetch("/api/admin/category", {
           method: "POST", // or 'PUT'
           headers: {
             "Content-Type": "application/json",
@@ -119,7 +122,7 @@ const CategorForm: React.FC<CategorFormProps> = ({ initialData }) => {
 
   const onDelete = async () => {
     try {
-      const response = await fetch(`/api/category/${params.categoryId}`, {
+      const response = await fetch(`/api/admin/category/${params.categoryId}`, {
         method: "DELETE",
       });
 
