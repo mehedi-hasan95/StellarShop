@@ -52,6 +52,8 @@ model User {
   emailVerified  DateTime?
   image          String?
   hasbedPassword String?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
   role           roleEnam   @default(buyer)
   accounts       Account[]
   sessions       Session[]
