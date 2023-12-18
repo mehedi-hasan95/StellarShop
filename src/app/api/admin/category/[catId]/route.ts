@@ -15,6 +15,12 @@ export async function GET(
         products: {
           include: {
             images: true,
+            _count: {
+              select: {
+                review: true,
+                wishlist: true,
+              },
+            },
           },
         },
         billboard: true,

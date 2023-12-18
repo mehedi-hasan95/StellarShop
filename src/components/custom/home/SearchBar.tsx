@@ -18,7 +18,7 @@ import Link from "next/link";
 const SearchBar = () => {
   const [result, setResult] = useState("");
   const { data, error, isLoading } = useSWR(
-    result && `/api/search?title=${result}`
+    result && `/api/user/search?title=${result}`
   );
 
   const handleDebounce = debounce((value) => {
@@ -60,22 +60,26 @@ const SearchBar = () => {
             className={cn("outline-none focus-visible:ring-0 pl-9")}
           />
         </div>
-        <div className="max-w-3xl mx-auto">
-          {data?.posts?.length > 0 && (
-            <div className="pt-5 bg-white px-3 pb-5">
-              {data?.posts?.map((item: PostProps) => (
-                <ul key={item.id}>
-                  <Link
-                    href={`/products/${item.slug}`}
-                    className="text-lg font-bold pb-3"
-                  >
-                    {item.title}
-                  </Link>
-                </ul>
-              ))}
-            </div>
-          )}
-        </div>
+        {data?.msg === "success" && (
+          <div className="max-w-3xl mx-auto">
+            {data?.posts?.length > 0 ? (
+              <div className="pt-5 bg-white px-3 pb-5">
+                {data?.posts?.map((item: PostProps) => (
+                  <ul key={item.id}>
+                    <Link
+                      href={`/products/${item.slug}`}
+                      className="text-lg font-bold pb-3"
+                    >
+                      {item.title}
+                    </Link>
+                  </ul>
+                ))}
+              </div>
+            ) : (
+              <h2 className="text-lg font-bold pt-3">No post found</h2>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
