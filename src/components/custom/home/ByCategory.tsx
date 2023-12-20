@@ -2,13 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 
 async function getCategoryData() {
-  const res = await fetch(process.env.BASE_URL + `/admin/category`);
+  try {
+    const res = await fetch(process.env.BASE_URL + `/admin/category`);
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    return res.json();
+  } catch (error) {
+    return null;
   }
-
-  return res.json();
 }
 const ByCategory = async () => {
   const data = await getCategoryData();
