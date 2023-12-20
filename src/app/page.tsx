@@ -8,14 +8,28 @@ import LatestPosts from "@/components/custom/home/LatestPosts";
 import Footer from "@/components/custom/Footer";
 import SkeletonLoder from "@/components/custom/SkeletonLoder";
 
-export default function Home() {
+async function getCategoryData() {
+  try {
+    const res = await fetch(process.env.BASE_URL + `/admin/category`);
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error(error);
+  }
+}
+export default async function Home() {
+  const data = await getCategoryData();
   return (
     <div>
       <MainMenu />
       <SearchBar />
       <div className="container mx-auto p-4">
         <h2 className="text-lg font-bold py-10">Search by Category:</h2>
-        <ByCategory />
+        <ByCategory data={data} />
       </div>
       <CreateAccount />
       {/* <div className="container mx-auto p-4">
