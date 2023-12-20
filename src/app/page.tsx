@@ -14,7 +14,7 @@ export default function Home() {
     <div>
       <MainMenu />
       <SearchBar />
-      <div className="container mx-auto p-4">
+      {/* <div className="container mx-auto p-4">
         <h2 className="text-lg font-bold py-10">Search by Category:</h2>
         <ByCategory />
       </div>
@@ -36,7 +36,7 @@ export default function Home() {
           Our Latest product:
         </h2>
         <LatestPosts />
-      </div>
+      </div> */}
       <Footer />
     </div>
   );
