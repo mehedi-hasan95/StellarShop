@@ -14,12 +14,12 @@ export default function Home() {
     <div>
       <MainMenu />
       <SearchBar />
-      {/* <div className="container mx-auto p-4">
+      <div className="container mx-auto p-4">
         <h2 className="text-lg font-bold py-10">Search by Category:</h2>
         <ByCategory />
       </div>
       <CreateAccount />
-      <div className="container mx-auto p-4">
+      {/* <div className="container mx-auto p-4">
         <h2 className="text-xl md:text-2xl font-bold py-2 border-b-2 border-emerald-500 max-w-max mb-5">
           Our Populer Products
         </h2>
