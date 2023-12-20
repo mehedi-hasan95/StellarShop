@@ -6,7 +6,6 @@ import Trending from "@/components/custom/home/Trending";
 import PopulerPosts from "@/components/custom/home/PopulerPosts";
 import LatestPosts from "@/components/custom/home/LatestPosts";
 import Footer from "@/components/custom/Footer";
-import { Suspense } from "react";
 import SkeletonLoder from "@/components/custom/SkeletonLoder";
 
 export default function Home() {
