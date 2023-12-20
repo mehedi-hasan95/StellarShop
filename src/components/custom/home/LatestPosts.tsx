@@ -1,13 +1,17 @@
 import Slider from "@/components/custom/Slider";
 
 async function getLatestProductData() {
-  const res = await fetch(process.env.BASE_URL + `/user/latest`);
+  try {
+    const res = await fetch(process.env.BASE_URL + `/user/latest`);
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    return res.json();
+  } catch (error) {
+    return null;
   }
-
-  return res.json();
 }
 const LatestPosts = async () => {
   const data = await getLatestProductData();

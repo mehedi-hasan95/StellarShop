@@ -18,32 +18,24 @@ export default function Home() {
         <h2 className="text-lg font-bold py-10">Search by Category:</h2>
         <ByCategory />
       </div>
-      <Suspense fallback={<SkeletonLoder />}>
-        <CreateAccount />
-      </Suspense>
+      <CreateAccount />
       <div className="container mx-auto p-4">
         <h2 className="text-xl md:text-2xl font-bold py-2 border-b-2 border-emerald-500 max-w-max mb-5">
           Our Populer Products
         </h2>
-        <Suspense fallback={<SkeletonLoder />}>
-          <PopulerPosts />
-        </Suspense>
+        <PopulerPosts />
       </div>
       <div className="container mx-auto p-4">
         <h2 className="text-xl md:text-2xl font-bold py-2 border-b-2 border-emerald-500 max-w-max mb-5">
           Our Tending product:
         </h2>
-        <Suspense fallback={<SkeletonLoder />}>
-          <Trending />
-        </Suspense>
+        <Trending />
       </div>
       <div className="container mx-auto p-4">
         <h2 className="text-xl md:text-2xl font-bold py-2 border-b-2 border-emerald-500 max-w-max mb-5">
           Our Latest product:
         </h2>
-        <Suspense fallback={<SkeletonLoder />}>
-          <LatestPosts />
-        </Suspense>
+        <LatestPosts />
       </div>
       <Footer />
     </div>

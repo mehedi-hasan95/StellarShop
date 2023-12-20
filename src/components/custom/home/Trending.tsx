@@ -13,13 +13,17 @@ interface TrendingProps {
 }
 
 async function getTrendingData() {
-  const res = await fetch(process.env.BASE_URL + `/user/trending`);
+  try {
+    const res = await fetch(process.env.BASE_URL + `/user/trending`);
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    return res.json();
+  } catch (error) {
+    return null;
   }
-
-  return res.json();
 }
 const Trending = async () => {
   const data = await getTrendingData();

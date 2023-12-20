@@ -1,13 +1,17 @@
 import Slider from "@/components/custom/Slider";
 
 async function getPopulerData() {
-  const res = await fetch(process.env.BASE_URL + `/user/populer`);
+  try {
+    const res = await fetch(process.env.BASE_URL + `/user/populer`);
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    return res.json();
+  } catch (error) {
+    return null;
   }
-
-  return res.json();
 }
 const PopulerPosts = async () => {
   const data = await getPopulerData();
