@@ -1,5 +1,5 @@
 import prismadb from "@/lib/prismadb";
-import DivisionForm from "../../_components/DivisionForm";
+import DivisionForm from "@/app/admin/_components/DivisionForm";
 
 const DivisionId = async ({ params }: { params: { divisionId: string } }) => {
   const division = await prismadb.division.findUnique({

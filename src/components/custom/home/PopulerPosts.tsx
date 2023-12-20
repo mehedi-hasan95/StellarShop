@@ -1,6 +1,14 @@
-import { getPopulerData } from "@/lib/apiData/apiData";
-import Slider from "../Slider";
+import Slider from "@/components/custom/Slider";
 
+async function getPopulerData() {
+  const res = await fetch(process.env.BASE_URL + `/user/populer`);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
 const PopulerPosts = async () => {
   const data = await getPopulerData();
   return (

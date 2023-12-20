@@ -2,7 +2,7 @@
 
 import { ShoppingBag } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import useCart from "@/hook/useCart";
 import Link from "next/link";
 

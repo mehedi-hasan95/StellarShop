@@ -1,17 +1,17 @@
 import prismadb from "@/lib/prismadb";
 import Image from "next/image";
 import Link from "next/link";
-import { getAuthSession } from "@/app/api/auth/[...nextauth]/route";
 import { Button } from "@/components/ui/button";
 import { PenSquare } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
+import getCurrentUser from "@/actions/getCurrentUser";
 
 async function getData() {
-  const session = await getAuthSession();
+  const session = await getCurrentUser();
   return await prismadb.products.findMany({
     where: {
-      sellerId: session?.user.id,
+      sellerId: session?.id,
     },
     include: {
       images: true,

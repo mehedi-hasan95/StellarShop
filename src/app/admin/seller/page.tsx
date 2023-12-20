@@ -1,5 +1,4 @@
 "use client";
-import { format } from "date-fns";
 import {
   Table,
   TableBody,
@@ -9,21 +8,22 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+
 import Image from "next/image";
 import useSWR from "swr";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
-interface UserProps {
+interface SellerProps {
   id: string;
   image: string;
   name: string;
   email: string;
   createdAt: string;
 }
+const Seller = () => {
+  const { data } = useSWR("/api/admin/seller");
 
-const User = () => {
-  const { data } = useSWR("/api/admin/user");
   return (
     <Table>
       <TableCaption>
@@ -39,7 +39,7 @@ const User = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data?.user?.map((item: UserProps) => (
+        {data?.user?.map((item: SellerProps) => (
           <TableRow key={item.id}>
             <TableCell>
               {
@@ -54,9 +54,7 @@ const User = () => {
             </TableCell>
             <TableCell>{item.name}</TableCell>
             <TableCell>{item.email}</TableCell>
-            <TableCell>
-              {format(new Date(item.createdAt), "dd-MMM-yyyy")}
-            </TableCell>
+            <TableCell>{item.createdAt}</TableCell>
           </TableRow>
         ))}
       </TableBody>
@@ -64,4 +62,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default Seller;

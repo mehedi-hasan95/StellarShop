@@ -9,8 +9,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-// import { Product } from "@/type/types";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
+
 import useCart from "@/hook/useCart";
 import { MouseEventHandler, useEffect, useState } from "react";
 import { ShoppingBag, Trash } from "lucide-react";
@@ -62,7 +62,7 @@ const AddToCart: React.FC<AddToCartProps> = ({ data }) => {
           <SheetHeader>
             <SheetTitle>Your Added Cart</SheetTitle>
             <SheetDescription>
-              {cart.items.length === 0 && (
+              {cart?.items?.length === 0 && (
                 <div className="flex flex-col items-center md:items-start">
                   <Image src="/empty.jpg" alt="" height={500} width={500} />
                   <p className="text-neutral-500 text-lg">
@@ -71,7 +71,7 @@ const AddToCart: React.FC<AddToCartProps> = ({ data }) => {
                 </div>
               )}
               <ul>
-                {cart.items.map((item) => (
+                {cart?.items?.map((item) => (
                   <MiniShoppingProduct key={item.id} data={item} />
                 ))}
               </ul>

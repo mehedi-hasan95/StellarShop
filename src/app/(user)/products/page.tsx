@@ -1,6 +1,18 @@
 import Card from "@/components/custom/Card";
-import { getAllProductsData } from "@/lib/apiData/apiData";
 
+async function getAllProductsData() {
+  try {
+    const res = await fetch(process.env.BASE_URL + `/user/allproducts`);
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    return res.json();
+  } catch (error) {
+    return null;
+  }
+}
 const Products = async () => {
   const data = await getAllProductsData();
   return (

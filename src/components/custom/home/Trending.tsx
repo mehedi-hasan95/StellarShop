@@ -1,4 +1,3 @@
-import { getTrendingData } from "@/lib/apiData/apiData";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,11 +11,21 @@ interface TrendingProps {
   };
   slug: string;
 }
+
+async function getTrendingData() {
+  const res = await fetch(process.env.BASE_URL + `/user/trending`);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
 const Trending = async () => {
   const data = await getTrendingData();
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-3 md:gap-6">
-      {data.product.map((item: TrendingProps, index: number) => (
+      {data?.product?.map((item: TrendingProps, index: number) => (
         <div
           key={item.id}
           className="relative group overflow-hidden first:lg:row-span-2 first:lg:col-span-2"

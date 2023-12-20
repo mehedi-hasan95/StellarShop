@@ -1,21 +1,21 @@
 import MyProfile from "@/components/custom/MyProfile";
 import Logo from "@/components/custom/Logo";
 import { Separator } from "@/components/ui/separator";
-import { getAuthSession } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Home, Map, PlusCircle, Users } from "lucide-react";
 import Footer from "@/components/custom/Footer";
 import { cn } from "@/lib/utils";
+import getCurrentUser from "@/actions/getCurrentUser";
 
 export default async function BuyerLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const data = await getAuthSession();
-  if (data?.user.role !== "seller" && data?.user.role !== "admin") {
+  const data = await getCurrentUser();
+  if (data?.role !== "seller" && data?.role !== "admin") {
     redirect("/");
   }
   return (

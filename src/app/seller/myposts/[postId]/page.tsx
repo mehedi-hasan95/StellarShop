@@ -1,13 +1,13 @@
 import prismadb from "@/lib/prismadb";
 import ProductForm from "./_conponents/ProductForm";
-import { getAuthSession } from "@/app/api/auth/[...nextauth]/route";
+import getCurrentUser from "@/actions/getCurrentUser";
 
 const PostId = async ({ params }: { params: { postId: string } }) => {
-  const session = await getAuthSession();
+  const session = await getCurrentUser();
   const product = await prismadb.products.findUnique({
     where: {
       slug: params.postId,
-      sellerId: session?.user.id,
+      sellerId: session?.id,
     },
     include: {
       images: true,

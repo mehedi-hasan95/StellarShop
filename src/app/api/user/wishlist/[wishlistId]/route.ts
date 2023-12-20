@@ -1,4 +1,4 @@
-import { getAuthSession } from "@/app/api/auth/[...nextauth]/route";
+import getCurrentUser from "@/actions/getCurrentUser";
 import prismadb from "@/lib/prismadb";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -7,8 +7,8 @@ export async function POST(
   { params }: { params: { wishlistId: string } }
 ) {
   try {
-    const session = await getAuthSession();
-    if (!session?.user.id) {
+    const session = await getCurrentUser();
+    if (!session?.id) {
       return NextResponse.json({ msg: "Please login", status: 401 });
     }
     const body = await req.json();
@@ -16,7 +16,7 @@ export async function POST(
     const wishList = await prismadb.wishlist.create({
       data: {
         productId,
-        userId: session.user.id,
+        userId: session.id,
       },
     });
     return NextResponse.json({ msg: "success", wishList });
@@ -30,14 +30,14 @@ export async function DELETE(
   { params }: { params: { wishlistId: string } }
 ) {
   try {
-    const session = await getAuthSession();
-    if (!session?.user.id) {
+    const session = await getCurrentUser();
+    if (!session?.id) {
       return NextResponse.json({ msg: "Please login", status: 401 });
     }
     const wishList = await prismadb.wishlist.delete({
       where: {
         id: params.wishlistId,
-        userId: session.user.id,
+        userId: session.id,
       },
     });
     return NextResponse.json({ msg: "success", wishList });
@@ -50,12 +50,12 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { wishlistId: string } }
 ) {
-  const session = await getAuthSession();
+  const session = await getCurrentUser();
   try {
     const wishList = await prismadb.wishlist.findFirst({
       where: {
         productId: params.wishlistId,
-        userId: session?.user.id,
+        userId: session?.id,
       },
     });
     return NextResponse.json({ msg: "success", wishList });

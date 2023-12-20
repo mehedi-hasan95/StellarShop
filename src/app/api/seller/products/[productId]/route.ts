@@ -1,4 +1,4 @@
-import { getAuthSession } from "@/app/api/auth/[...nextauth]/route";
+import getCurrentUser from "@/actions/getCurrentUser";
 import prismadb from "@/lib/prismadb";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -7,9 +7,9 @@ export async function PATCH(
   { params }: { params: { productId: string } }
 ) {
   try {
-    const session = await getAuthSession();
+    const session = await getCurrentUser();
 
-    if (session?.user.role !== "seller") {
+    if (session?.role !== "seller") {
       return NextResponse.json({ msg: "Unauthorize User" }, { status: 401 });
     }
     const unAuthorizeUser = await prismadb.products.findUnique({
@@ -20,7 +20,7 @@ export async function PATCH(
     if (!unAuthorizeUser) {
       return NextResponse.json({ msg: "Product not found" }, { status: 404 });
     }
-    if (unAuthorizeUser.sellerId !== session.user.id) {
+    if (unAuthorizeUser.sellerId !== session.id) {
       return NextResponse.json({ msg: "Unauthorize User" }, { status: 401 });
     }
 
@@ -76,7 +76,7 @@ export async function PATCH(
         catId,
         divisionId,
         districtId,
-        sellerId: session?.user.id as string,
+        sellerId: session?.id as string,
         slug,
       },
     });
@@ -91,9 +91,9 @@ export async function DELETE(
   { params }: { params: { productId: string } }
 ) {
   try {
-    const session = await getAuthSession();
+    const session = await getCurrentUser();
 
-    if (session?.user.role !== "seller") {
+    if (session?.role !== "seller") {
       return NextResponse.json({ msg: "Unauthorize User" }, { status: 401 });
     }
     const unAuthorizeUser = await prismadb.products.findUnique({
@@ -104,7 +104,7 @@ export async function DELETE(
     if (!unAuthorizeUser) {
       return NextResponse.json({ msg: "Product not found" }, { status: 404 });
     }
-    if (unAuthorizeUser.sellerId !== session.user.id) {
+    if (unAuthorizeUser.sellerId !== session.id) {
       return NextResponse.json({ msg: "Unauthorize User" }, { status: 401 });
     }
     const product = await prismadb.products.delete({

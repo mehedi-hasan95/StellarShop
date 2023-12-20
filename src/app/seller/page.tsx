@@ -1,11 +1,11 @@
-import { getAuthSession } from "../api/auth/[...nextauth]/route";
+import getCurrentUser from "@/actions/getCurrentUser";
 
 const SellerDashboard = async () => {
-  const session = await getAuthSession();
+  const session = await getCurrentUser();
   return (
     <div>
       <h2 className="text-2xl">
-        Wellcome <span className="font-bold">{session?.user?.name}</span>
+        Wellcome <span className="font-bold">{session?.name}</span>
       </h2>
     </div>
   );

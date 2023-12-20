@@ -1,4 +1,4 @@
-import { getAuthSession } from "@/app/api/auth/[...nextauth]/route";
+import getCurrentUser from "@/actions/getCurrentUser";
 import prismadb from "@/lib/prismadb";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -7,15 +7,15 @@ export async function POST(
   { params }: { params: { reviewId: string } }
 ) {
   try {
-    const session = await getAuthSession();
-    if (!session?.user.id) {
+    const session = await getCurrentUser();
+    if (!session?.id) {
       return NextResponse.json({ msg: "Un", status: 400 });
     }
     const body = await req.json();
     const { review, comment, productId } = body;
     const existingComment = await prismadb.review.findFirst({
       where: {
-        userId: session.user.id,
+        userId: session.id,
         productId: params.reviewId,
       },
     });
@@ -27,7 +27,7 @@ export async function POST(
         review,
         comment,
         productId,
-        userId: session.user.id,
+        userId: session.id,
       },
     });
     return NextResponse.json({ msg: "success", reviews });

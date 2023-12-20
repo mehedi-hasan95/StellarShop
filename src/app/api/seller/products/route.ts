@@ -1,10 +1,10 @@
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
-import { getAuthSession } from "../../auth/[...nextauth]/route";
+import getCurrentUser from "@/actions/getCurrentUser";
 
 export async function POST(req: Request) {
   try {
-    const session = await getAuthSession();
+    const session = await getCurrentUser();
     const body = await req.json();
     const {
       title,
@@ -42,7 +42,7 @@ export async function POST(req: Request) {
         catId,
         divisionId,
         districtId,
-        sellerId: session?.user.id as string,
+        sellerId: session?.id as string,
         slug,
       },
     });
@@ -54,10 +54,10 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
   try {
-    const session = await getAuthSession();
+    const session = await getCurrentUser();
     const products = await prismadb.products.findMany({
       where: {
-        sellerId: session?.user.id,
+        sellerId: session?.id,
       },
       include: {
         images: true,

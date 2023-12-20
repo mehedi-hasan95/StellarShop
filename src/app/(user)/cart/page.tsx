@@ -23,7 +23,7 @@ const CartPage = () => {
       </h2>
       <div className="md:grid md:grid-cols-12 md:items-start md:gap-x-12 gay-y-12">
         <div className="md:col-span-7">
-          {cart.items.length === 0 && (
+          {cart?.items?.length === 0 && (
             <div className="flex flex-col items-center md:items-start">
               <Image src="/empty.jpg" alt="" height={500} width={500} />
               <p className="text-neutral-500 text-lg">
@@ -32,7 +32,7 @@ const CartPage = () => {
             </div>
           )}
           <ul>
-            {cart.items.map((item) => (
+            {cart?.items?.map((item) => (
               <ShoppingProduct key={item.id} data={item} />
             ))}
           </ul>

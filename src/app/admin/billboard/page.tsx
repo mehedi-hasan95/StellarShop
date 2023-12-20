@@ -1,26 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { getBillboardData } from "@/lib/apiData/apiData";
+import prismadb from "@/lib/prismadb";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
-type Category = {
-  id: string;
-  name: string;
-};
-
-type Billboard = {
-  id: string;
-  label: string;
-  image: string;
-  category: Category; // Assuming category is an object with id and name
-};
-type BillboardData = {
-  billboard: Billboard[];
-};
 const BillboardPage = async () => {
-  const data: BillboardData = await getBillboardData();
+  const data = await prismadb.billboard.findMany({
+    include: {
+      category: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -35,7 +29,7 @@ const BillboardPage = async () => {
         <Separator className={cn("bg-emerald-600")} />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {data.billboard.map((item) => (
+        {data?.map((item) => (
           <Link
             key={item.id}
             href={`/admin/billboard/${item.id}`}

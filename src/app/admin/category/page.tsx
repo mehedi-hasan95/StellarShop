@@ -4,7 +4,6 @@ import { PlusCircle } from "lucide-react";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
-import { getCategoryData } from "@/lib/apiData/apiData";
 
 interface CategoryItemProps {
   id: string;
@@ -13,6 +12,19 @@ interface CategoryItemProps {
   slug: string;
 }
 
+async function getCategoryData() {
+  try {
+    const res = await fetch(process.env.BASE_URL + `/admin/category`);
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    return res.json();
+  } catch (error) {
+    return null;
+  }
+}
 const Category = async () => {
   const data = await getCategoryData();
   return (

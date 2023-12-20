@@ -1,19 +1,19 @@
 import MyProfile from "@/components/custom/MyProfile";
 import Logo from "@/components/custom/Logo";
 import { Separator } from "@/components/ui/separator";
-import { getAuthSession } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 
 import Footer from "@/components/custom/Footer";
-import AdminMenu from "./(adminPages)/_components/AdminMenu";
+import getCurrentUser from "@/actions/getCurrentUser";
+import AdminMenu from "./_components/AdminMenu";
 
 export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const data = await getAuthSession();
-  if (data?.user.role !== "admin") {
+  const data = await getCurrentUser();
+  if (data?.role !== "admin") {
     redirect("/");
   }
   return (

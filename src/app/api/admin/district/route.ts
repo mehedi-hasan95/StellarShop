@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import { redirect } from "next/navigation";
 import prismadb from "@/lib/prismadb";
-import { getAuthSession } from "../../auth/[...nextauth]/route";
+import getCurrentUser from "@/actions/getCurrentUser";
 
 export async function POST(req: Request) {
   try {
-    const session = await getAuthSession();
-    if (session?.user.role !== "admin") {
+    const session = await getCurrentUser();
+    if (session?.role !== "admin") {
       redirect("/");
     }
     const body = await req.json();

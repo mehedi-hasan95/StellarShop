@@ -1,4 +1,4 @@
-import { getAuthSession } from "@/app/api/auth/[...nextauth]/route";
+import getCurrentUser from "@/actions/getCurrentUser";
 import prismadb from "@/lib/prismadb";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -37,8 +37,8 @@ export async function PATCH(
   { params }: { params: { catId: string } }
 ) {
   try {
-    const session = await getAuthSession();
-    if (session?.user.role !== "admin") {
+    const session = await getCurrentUser();
+    if (session?.role !== "admin") {
       return NextResponse.json({ msg: "Unauthorize User", status: 401 });
     }
     const body = await req.json();
@@ -59,8 +59,8 @@ export async function DELETE(
   { params }: { params: { catId: string } }
 ) {
   try {
-    const session = await getAuthSession();
-    if (session?.user.role !== "admin") {
+    const session = await getCurrentUser();
+    if (session?.role !== "admin") {
       return NextResponse.json({ msg: "Unauthorize User" }, { status: 401 });
     }
 

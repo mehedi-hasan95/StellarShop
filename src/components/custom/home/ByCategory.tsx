@@ -1,7 +1,15 @@
-import { getCategoryData } from "@/lib/apiData/apiData";
 import Image from "next/image";
 import Link from "next/link";
 
+async function getCategoryData() {
+  const res = await fetch(process.env.BASE_URL + `/admin/category`);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
 const ByCategory = async () => {
   const data = await getCategoryData();
   return (

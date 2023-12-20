@@ -1,11 +1,11 @@
+import getCurrentUser from "@/actions/getCurrentUser";
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
-import { getAuthSession } from "../../auth/[...nextauth]/route";
 
 export async function POST(req: Request) {
   try {
-    const session = await getAuthSession();
-    if (session?.user.role !== "admin") {
+    const session = await getCurrentUser();
+    if (session?.role !== "admin") {
       return NextResponse.json({ msg: "User is unauthorize" }, { status: 401 });
     }
     const body = await req.json();

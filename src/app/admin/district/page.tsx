@@ -4,8 +4,19 @@ import { PlusCircle } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 
-import { getDistrictData } from "@/lib/apiData/apiData";
+async function getDistrictData() {
+  try {
+    const res = await fetch(process.env.BASE_URL + `/admin/district`);
 
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    return res.json();
+  } catch (error) {
+    return null;
+  }
+}
 const District = async () => {
   const data = await getDistrictData();
   return (

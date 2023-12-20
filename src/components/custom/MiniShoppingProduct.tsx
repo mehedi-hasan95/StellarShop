@@ -2,10 +2,8 @@
 import Currency from "@/components/custom/Currency";
 import useCart from "@/hook/useCart";
 import { Product } from "@/type/types";
-import { Trash, X } from "lucide-react";
+import { X } from "lucide-react";
 import Image from "next/image";
-import { Button } from "../ui/button";
-import Link from "next/link";
 
 interface CartItemProps {
   data: Product;

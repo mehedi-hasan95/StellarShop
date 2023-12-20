@@ -1,5 +1,5 @@
 import prismadb from "@/lib/prismadb";
-import DistrictForm from "../../_components/DistrictForm";
+import DistrictForm from "@/app/admin/_components/DistrictForm";
 
 const DistrictId = async ({ params }: { params: { districtId: string } }) => {
   const district = await prismadb.district.findUnique({

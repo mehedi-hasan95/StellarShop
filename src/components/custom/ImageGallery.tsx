@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { TabsContent, Tabs, TabsList, TabsTrigger } from "../ui/tabs";
+import { TabsContent, Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 interface ImageGalleryProps {
   data: {

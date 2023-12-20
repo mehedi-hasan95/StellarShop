@@ -1,5 +1,4 @@
 import NotFound from "@/app/seller/not-found";
-import { getSingleData } from "@/lib/apiData/apiData";
 import {
   Accordion,
   AccordionContent,
@@ -9,16 +8,29 @@ import {
 
 import { Bookmark, Contact, DollarSign, ShoppingCart } from "lucide-react";
 import ImageGallery from "@/components/custom/ImageGallery";
-// import { Button } from "@/components/ui/button";
 import AddToCart from "@/components/custom/AddToCart";
-// import { Preview } from "@/components/custom/Preview";
 import WishListButton from "@/components/custom/WishListButton";
-import ReviewForm from "../_component/ReviewForm";
+import ReviewForm from "@/app/(user)/products/_component/ReviewForm";
 
 interface productidProps {
   params: {
     productId: string;
   };
+}
+
+async function getSingleData(productId: string) {
+  const res = await fetch(
+    process.env.BASE_URL + `/user/allproducts/${productId}`,
+    {
+      cache: "no-store",
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
 }
 const ProductId: React.FC<productidProps> = async ({ params }) => {
   const data = await getSingleData(params.productId);

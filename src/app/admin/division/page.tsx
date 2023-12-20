@@ -2,8 +2,20 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { PlusCircle } from "lucide-react";
-import { getDivisoinData } from "@/lib/apiData/apiData";
 
+async function getDivisoinData() {
+  try {
+    const res = await fetch(process.env.BASE_URL + `/admin/division`);
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    return res.json();
+  } catch (error) {
+    return null;
+  }
+}
 const Division = async () => {
   const data = await getDivisoinData();
   return (

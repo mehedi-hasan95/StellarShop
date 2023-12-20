@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { Expand, Heart, MessagesSquare, Share2, ThumbsUp } from "lucide-react";
 import AddToCart from "./AddToCart";
 import Currency from "./Currency";

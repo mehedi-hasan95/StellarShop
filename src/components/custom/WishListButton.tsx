@@ -1,7 +1,7 @@
 "use client";
 import useSWR from "swr";
 import { Heart } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
