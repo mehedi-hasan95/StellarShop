@@ -15,7 +15,7 @@ import useSWR from "swr";
 //     console.error(error);
 //   }
 // }
-const ByCategory = async () => {
+const ByCategory = () => {
   const { data, isLoading } = useSWR(`${process.env.BASE_URL}/admin/category`);
   if (isLoading) return <div>loading...</div>;
   return (
