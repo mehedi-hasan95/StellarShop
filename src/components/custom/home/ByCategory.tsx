@@ -11,7 +11,7 @@ async function getCategoryData() {
 
     return res.json();
   } catch (error) {
-    console.error(error);
+    return null;
   }
 }
 const ByCategory = async () => {
