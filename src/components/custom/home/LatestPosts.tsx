@@ -1,8 +1,11 @@
+export const revalidate = 0;
 import Slider from "@/components/custom/Slider";
 
 async function getLatestProductData() {
   try {
-    const res = await fetch(process.env.BASE_URL + `/user/latest`);
+    const res = await fetch(process.env.BASE_URL + `/user/latest`, {
+      cache: "no-store",
+    });
 
     if (!res.ok) {
       throw new Error("Failed to fetch data");

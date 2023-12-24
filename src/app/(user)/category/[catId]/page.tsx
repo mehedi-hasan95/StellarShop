@@ -1,9 +1,12 @@
+export const revalidate = 0;
 import Image from "next/image";
 import NotFound from "@/app/(user)/category/not-found";
 import Card from "@/components/custom/Card";
 
 async function getSingleCatData(id: string) {
-  const res = await fetch(process.env.BASE_URL + `/admin/category/${id}`);
+  const res = await fetch(process.env.BASE_URL + `/admin/category/${id}`, {
+    cache: "no-store",
+  });
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");

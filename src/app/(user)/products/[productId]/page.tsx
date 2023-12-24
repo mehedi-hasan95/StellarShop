@@ -6,7 +6,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-import { Bookmark, Contact, DollarSign, ShoppingCart } from "lucide-react";
+export const revalidate = 0;
+import { Contact, DollarSign } from "lucide-react";
 import ImageGallery from "@/components/custom/ImageGallery";
 import AddToCart from "@/components/custom/AddToCart";
 import WishListButton from "@/components/custom/WishListButton";

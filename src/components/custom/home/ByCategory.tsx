@@ -1,9 +1,12 @@
+export const revalidate = 0;
 import Image from "next/image";
 import Link from "next/link";
 
 async function getCategoryData() {
   try {
-    const res = await fetch(process.env.BASE_URL + `/admin/category`);
+    const res = await fetch(process.env.BASE_URL + `/admin/category`, {
+      cache: "no-store",
+    });
 
     if (!res.ok) {
       throw new Error("Failed to fetch data");
