@@ -23,7 +23,7 @@ export default function Home() {
         <h2 className="text-xl md:text-2xl font-bold py-2 border-b-2 border-emerald-500 max-w-max mb-5">
           Our Populer Products
         </h2>
-        <PopulerPosts />
+        {/* <PopulerPosts /> */}
       </div>
       <div className="container mx-auto p-4">
         <h2 className="text-xl md:text-2xl font-bold py-2 border-b-2 border-emerald-500 max-w-max mb-5">
@@ -35,7 +35,7 @@ export default function Home() {
         <h2 className="text-xl md:text-2xl font-bold py-2 border-b-2 border-emerald-500 max-w-max mb-5">
           Our Latest product:
         </h2>
-        <LatestPosts />
+        {/* <LatestPosts /> */}
       </div>
       <Footer />
     </div>
