@@ -15,7 +15,7 @@ async function getLatestProductData() {
 }
 const LatestPosts = async () => {
   const data = await getLatestProductData();
-  return <Slider data={data} className="lg:basis-1/4" />;
+  return <Slider data={data} className="lg:basis-1/3" />;
 };
 
 export default LatestPosts;
