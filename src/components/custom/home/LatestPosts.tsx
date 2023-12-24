@@ -15,29 +15,7 @@ async function getLatestProductData() {
 }
 const LatestPosts = async () => {
   const data = await getLatestProductData();
-  return (
-    <Slider
-      autoPlay={{ delay: 3000, disableOnInteraction: true }}
-      data={data}
-      navigation={true}
-      slidesPerView={1}
-      spaceBetween={20}
-      breakpoints={{
-        640: {
-          slidesPerView: 1,
-          spaceBetween: 20,
-        },
-        768: {
-          slidesPerView: 2,
-          spaceBetween: 25,
-        },
-        1024: {
-          slidesPerView: 4,
-          spaceBetween: 30,
-        },
-      }}
-    />
-  );
+  return <Slider data={data} className="lg:basis-1/4" />;
 };
 
 export default LatestPosts;

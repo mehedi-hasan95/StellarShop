@@ -1,102 +1,59 @@
 "use client";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import { Autoplay, Pagination } from "swiper/modules";
-import { Navigation } from "swiper/modules";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import Image from "next/image";
-import Link from "next/link";
 import Currency from "./Currency";
 import AddToCart from "./AddToCart";
 import { Product } from "@/type/types";
-import { useEffect, useState } from "react";
-import "swiper/css/pagination";
+import Autoplay from "embla-carousel-autoplay";
+import { cn } from "@/lib/utils";
+
 interface SliderProps {
   data: {
     product: Product[];
   };
-  slidesPerView?: number;
-  spaceBetween?: number;
-  breakpoints?: Record<number, { slidesPerView: number; spaceBetween: number }>;
-  pagination?: {
-    dynamicBullets: boolean;
-    clickable: boolean;
-  };
-  navigation?: boolean;
-  autoPlay?: {
-    delay: number;
-    disableOnInteraction: boolean;
-  };
+  className?: string;
 }
-const Slider: React.FC<SliderProps> = ({
-  data,
-  slidesPerView,
-  spaceBetween,
-  autoPlay,
-  breakpoints,
-  pagination,
-  navigation,
-}) => {
-  const swiperAutoplayConfig = autoPlay
-    ? {
-        delay: autoPlay.delay,
-        disableOnInteraction: autoPlay.disableOnInteraction ?? false,
-      }
-    : false;
-
-  // Hydration Error
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-  if (!isMounted) {
-    return null;
-  }
+const Slider: React.FC<SliderProps> = ({ data, className }) => {
   return (
-    <Swiper
-      pagination={pagination}
-      navigation={navigation}
-      slidesPerView={slidesPerView}
-      spaceBetween={spaceBetween}
-      loop={true}
-      autoplay={swiperAutoplayConfig}
-      breakpoints={breakpoints}
-      modules={[Autoplay, Navigation, Pagination]}
-      className="mySwiper"
+    <Carousel
+      opts={{
+        align: "start",
+        loop: true,
+      }}
+      plugins={[
+        Autoplay({
+          delay: 2000,
+        }),
+      ]}
     >
-      {data.product.map((item: any) => (
-        <div key={item.id}>
-          <SwiperSlide>
-            <div className="border-2 max-w-max border-gray-400 rounded-lg px-5 py-10">
-              <Image
-                src={item?.images[0]?.url}
-                alt=""
-                height={500}
-                width={500}
-                className="max-h-64"
-              />
-              <Link
-                className="md:text-lg font-bold line-clamp-3 mt-3"
-                href={`/products/${item.slug}`}
-              >
-                {item.title}
-              </Link>
-              <div>
-                <h4 className="flex flex-col gap-1 pt-5">
-                  <div className="flex">
-                    Price: <Currency value={item.price} />
-                  </div>
-                  <div>
-                    <AddToCart data={item as Product} />
-                  </div>
-                </h4>
+      <CarouselContent>
+        {data.product.map((item) => (
+          <CarouselItem
+            key={item.id}
+            className={cn(`md:basis-1/2 lg:basis-1/3 flex flex-col`, className)}
+          >
+            <div className="border-2 flex-1 rounded-md">
+              <Image src={item.images[0].url} alt="" height={500} width={500} />
+              <div className="px-3 py-5">
+                <h2 className="md:text-md font-bold">{item.title}</h2>
+                <h2 className="flex gap-x-1 py-2">
+                  Price: <Currency value={item.price} />
+                </h2>
+                <AddToCart data={item} />
               </div>
             </div>
-          </SwiperSlide>
-        </div>
-      ))}
-    </Swiper>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+    </Carousel>
   );
 };
 
