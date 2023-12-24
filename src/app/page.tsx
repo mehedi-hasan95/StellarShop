@@ -6,8 +6,6 @@ import Trending from "@/components/custom/home/Trending";
 import PopulerPosts from "@/components/custom/home/PopulerPosts";
 import LatestPosts from "@/components/custom/home/LatestPosts";
 import Footer from "@/components/custom/Footer";
-import { Suspense } from "react";
-import SkeletonLoder from "@/components/custom/SkeletonLoder";
 
 export default function Home() {
   return (
@@ -35,7 +33,7 @@ export default function Home() {
         <h2 className="text-xl md:text-2xl font-bold py-2 border-b-2 border-emerald-500 max-w-max mb-5">
           Our Latest product:
         </h2>
-        <LatestPosts />
+        {/* <LatestPosts /> */}
       </div>
       <Footer />
     </div>
