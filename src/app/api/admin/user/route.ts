@@ -1,14 +1,14 @@
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
-// import { redirect } from "next/navigation";
-// import getCurrentUser from "@/actions/getCurrentUser";
+import { redirect } from "next/navigation";
+import getCurrentUser from "@/actions/getCurrentUser";
 
 export async function GET(req: Request) {
   try {
-    // const session = await getCurrentUser();
-    // if (session?.role !== "admin") {
-    //   redirect("/");
-    // }
+    const session = await getCurrentUser();
+    if (session?.role !== "admin") {
+      redirect("/");
+    }
     const user = await prismadb.user.findMany({
       where: {
         role: "buyer",

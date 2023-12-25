@@ -1,4 +1,3 @@
-export const revalidate = 0;
 import Card from "@/components/custom/Card";
 
 async function getAllProductsData() {
