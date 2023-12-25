@@ -12,6 +12,7 @@ import AddToCart from "./AddToCart";
 import { Product } from "@/type/types";
 import Autoplay from "embla-carousel-autoplay";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 interface SliderProps {
   data: {
@@ -41,7 +42,12 @@ const Slider: React.FC<SliderProps> = ({ data, className }) => {
             <div className="border-2 flex-1 rounded-md">
               <Image src={item.images[0].url} alt="" height={500} width={500} />
               <div className="px-3 py-5">
-                <h2 className="md:text-md font-bold">{item.title}</h2>
+                <Link
+                  href={`/products/${item.slug}`}
+                  className="md:text-md font-bold"
+                >
+                  {item.title}
+                </Link>
                 <h2 className="flex gap-x-1 py-2">
                   Price: <Currency value={item.price} />
                 </h2>

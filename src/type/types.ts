@@ -5,4 +5,5 @@ export interface Product {
   title: string;
   price: string;
   images: Image[];
+  slug?: string;
 }

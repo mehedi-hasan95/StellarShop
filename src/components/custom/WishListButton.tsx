@@ -1,11 +1,11 @@
 "use client";
 import useSWR from "swr";
-import { Heart } from "lucide-react";
+import { Heart, RotateCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 // import useSWR from "swr";
 
 interface WishListButtonProps {
@@ -15,6 +15,7 @@ interface WishListButtonProps {
 }
 
 const WishListButton: React.FC<WishListButtonProps> = ({ data }) => {
+  const [loading, setLoading] = useState(false);
   const currentUser = useSession();
   const { data: isFevorite, mutate } = useSWR(`/api/user/wishlist/${data.id}`);
   const handleWishlist = async () => {
@@ -22,6 +23,7 @@ const WishListButton: React.FC<WishListButtonProps> = ({ data }) => {
       toast.error("Please login first");
     }
     if (isFevorite?.wishList?.productId) {
+      setLoading(true);
       try {
         const response = await fetch(
           `/api/user/wishlist/${isFevorite.wishList.id}`,
@@ -36,9 +38,12 @@ const WishListButton: React.FC<WishListButtonProps> = ({ data }) => {
         }
       } catch (error) {
         console.error("Error:", error);
+      } finally {
+        setLoading(false);
       }
     } else {
       try {
+        setLoading(true);
         const response = await fetch(`/api/user/wishlist/${data.id}`, {
           method: "POST", // or 'PUT'
           headers: {
@@ -53,12 +58,14 @@ const WishListButton: React.FC<WishListButtonProps> = ({ data }) => {
         }
       } catch (error) {
         console.error("Error:", error);
+      } finally {
+        setLoading(false);
       }
     }
   };
   return (
     <div>
-      <Button onClick={handleWishlist}>
+      <Button disabled={loading} onClick={handleWishlist}>
         <Heart
           size={20}
           className={cn(
@@ -67,10 +74,15 @@ const WishListButton: React.FC<WishListButtonProps> = ({ data }) => {
               isFevorite?.wishList?.userId === currentUser?.data?.user?.id
                 ? "text-red-500 fill-red-500"
                 : ""
-            } mr-2`
+            } mr-2 `
           )}
         />{" "}
         Add to Bookmark
+        {loading && (
+          <div className={`animate-spin`}>
+            <RotateCw />
+          </div>
+        )}
       </Button>
     </div>
   );
