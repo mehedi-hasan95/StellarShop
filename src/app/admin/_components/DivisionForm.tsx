@@ -32,10 +32,10 @@ import {
 
 const formSchema = z.object({
   name: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+    message: "Division must be at least 2 characters.",
   }),
   image: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+    message: "Image is required",
   }),
 });
 
@@ -49,7 +49,7 @@ const DivisionForm: React.FC<DivisionFormProps> = ({ initialData }) => {
 
   const title = initialData ? "Edit Division" : "Create Division";
   const toastMessage = initialData
-    ? "Edit Division successfully"
+    ? "Update Division successfully"
     : "Create Division successfully";
   const action = initialData ? "Save Changes" : "Create";
   // 1. Define your form.

@@ -47,7 +47,7 @@ const formSchema = z.object({
   catId: z.string().min(2, {
     message: "Select a category",
   }),
-  image: z.string().min(0, {
+  image: z.string().min(1, {
     message: "Upload an Image",
   }),
 });

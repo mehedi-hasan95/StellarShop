@@ -31,23 +31,23 @@ import ImageUpload from "@/components/custom/ImageUpload";
 const formSchema = z
   .object({
     name: z.string().min(2, {
-      message: "Username must be at least 2 characters.",
+      message: "Name must be at least 2 characters.",
     }),
-    email: z.string().min(2, {
-      message: "Username must be at least 2 characters.",
+    email: z.string().min(4, {
+      message: "Email must be at least 4 characters.",
     }),
 
     role: z.string().min(2, {
-      message: "Username must be at least 2 characters.",
+      message: "Slect your role",
     }),
     image: z.string().min(2, {
-      message: "Username must be at least 2 characters.",
+      message: "Upload your profie picture",
     }),
     password: z.string().min(2, {
-      message: "Username must be at least 2 characters.",
+      message: "Password must be at least 2 characters.",
     }),
     confirm: z.string().min(2, {
-      message: "Username must be at least 2 characters.",
+      message: "Confirm password must be at least 2 characters.",
     }),
   })
   .refine((data) => data.password === data.confirm, {

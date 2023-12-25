@@ -54,18 +54,18 @@ const formSchema = z.object({
     .min(10, {
       message: "Short Description must be at least 10 characters.",
     })
-    .max(260, {
-      message: "Short Description must not be longer than 260 characters.",
+    .max(360, {
+      message: "Short Description must not be longer than 360 characters.",
     }),
   desc: z.string().min(10, {
     message: "Description must be at least 10 characters.",
   }),
   isNew: z.boolean().default(false).optional(),
   divisionId: z.string().min(2, {
-    message: "Selected division name",
+    message: "Select a division name",
   }),
   districtId: z.string().min(2, {
-    message: "Selected district name",
+    message: "Select a district name",
   }),
   images: z.object({ url: z.string() }).array(),
   price: z.coerce.number().min(1, {
@@ -75,7 +75,7 @@ const formSchema = z.object({
     message: "Quantity must be at least 1 characters.",
   }),
   catId: z.string().min(1, {
-    message: "Category must be at least 2 characters.",
+    message: "Please select a category.",
   }),
 });
 
@@ -108,10 +108,8 @@ const ProductForm: React.FC<PostFormProps> = ({
   const [loading, setLoading] = useState(false);
 
   // message
-  const title = initialData ? "Edit billboard" : "Create billboard";
-  const toastMessage = initialData
-    ? "Billboard updated."
-    : "Billboard created.";
+  const title = initialData ? "Edit Product" : "Create Product";
+  const toastMessage = initialData ? "Product updated." : "Product created.";
   const action = initialData ? "Save changes" : "Create";
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({

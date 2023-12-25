@@ -34,7 +34,7 @@ const formSchema = z.object({
     message: "Category must be at least 2 characters.",
   }),
   image: z.string().min(2, {
-    message: "Image must be at least 2 characters.",
+    message: "Image is required.",
   }),
 });
 

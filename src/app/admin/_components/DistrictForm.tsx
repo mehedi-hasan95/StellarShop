@@ -41,13 +41,13 @@ import toast from "react-hot-toast";
 
 const formSchema = z.object({
   name: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+    message: "District must be at least 2 characters.",
   }),
   divisionId: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+    message: "Please select a devision.",
   }),
   image: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+    message: "Image is required. Add and image",
   }),
 });
 
